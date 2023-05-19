@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class Utilisateur
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -17,6 +21,11 @@ class Utilisateur
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -29,19 +38,16 @@ class Utilisateur
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="json")
      */
-    private $email;
+    private $roles = [];
 
     /**
-     * @ORM\Column(type="string")
+     * @var string The hashed password
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $motDePasse;
+    private $password;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $role;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="conducteur")
@@ -59,35 +65,9 @@ class Utilisateur
         $this->reservations = new ArrayCollection();
     }
 
-    // plus les getters et setters...
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -102,29 +82,82 @@ class Utilisateur
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->motDePasse;
+        return (string) $this->email;
     }
 
-    public function setMotDePasse(string $motDePasse): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->motDePasse = $motDePasse;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getRole(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): ?string
     {
-        return $this->role;
+        return $this->password ;
     }
 
-    public function setRole(string $role): self
+    public function setPassword(string $password): self
     {
-        $this->role = $role;
+        $this->password = $password;
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom): void
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param mixed $prenom
+     */
+    public function setPrenom($prenom): void
+    {
+        $this->prenom = $prenom;
+    }
+
 
     /**
      * @return Collection<int, Annonce>
@@ -184,5 +217,25 @@ class Utilisateur
         }
 
         return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

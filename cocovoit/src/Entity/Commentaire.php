@@ -18,7 +18,7 @@ class Commentaire
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $auteur;
 
@@ -51,12 +51,12 @@ class Commentaire
         return $this;
     }
 
-    public function getAuteur(): ?Utilisateur
+    public function getAuteur(): ?User
     {
         return $this->auteur;
     }
 
-    public function setAuteur(?Utilisateur $auteur): self
+    public function setAuteur(?User $auteur): self
     {
         $this->auteur = $auteur;
 

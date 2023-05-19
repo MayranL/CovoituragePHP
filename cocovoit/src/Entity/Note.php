@@ -17,12 +17,12 @@ class Note
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $auteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $conducteur;
 
@@ -55,24 +55,24 @@ class Note
         return $this;
     }
 
-    public function getAuteur(): ?Utilisateur
+    public function getAuteur(): ?User
     {
         return $this->auteur;
     }
 
-    public function setAuteur(?Utilisateur $auteur): self
+    public function setAuteur(?User $auteur): self
     {
         $this->auteur = $auteur;
 
         return $this;
     }
 
-    public function getConducteur(): ?Utilisateur
+    public function getConducteur(): ?User
     {
         return $this->conducteur;
     }
 
-    public function setConducteur(?Utilisateur $conducteur): self
+    public function setConducteur(?User $conducteur): self
     {
         $this->conducteur = $conducteur;
 

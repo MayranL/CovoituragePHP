@@ -17,7 +17,7 @@ class Reservation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reservations")
      */
     private $passager;
 
@@ -33,12 +33,12 @@ class Reservation
         return $this->id;
     }
 
-    public function getPassager(): ?Utilisateur
+    public function getPassager(): ?User
     {
         return $this->passager;
     }
 
-    public function setPassager(?Utilisateur $passager): self
+    public function setPassager(?User $passager): self
     {
         $this->passager = $passager;
 

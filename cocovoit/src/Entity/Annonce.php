@@ -17,7 +17,7 @@ class Annonce
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="annonces")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="annonces")
      */
     private $conducteur;
 
@@ -45,12 +45,12 @@ class Annonce
         return $this;
     }
 
-    public function getConducteur(): ?Utilisateur
+    public function getConducteur(): ?User
     {
         return $this->conducteur;
     }
 
-    public function setConducteur(?Utilisateur $conducteur): self
+    public function setConducteur(?User $conducteur): self
     {
         $this->conducteur = $conducteur;
 

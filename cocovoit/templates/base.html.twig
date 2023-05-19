@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
+        <title>{% block title %}Cocovoit{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -13,7 +14,38 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
-    <body>
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex justify-between items-center">
+                <img class="w-8 h-8 mr-2" src="{{ asset('images/log.png') }}" alt="logo">
+                <a class="text-xl font-semibold" href="#">CoCoVoit</a>
+                </div>
+                <button class="text-gray-600 focus:outline-none md:hidden">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="{{ path('dashboard') }}" class="text-gray-600 hover:text-gray-900">Accueil</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Proposer un trajet</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Rechercher un trajet</a>
+                    {% if not app.user %}
+                    <a href="{{ path('login') }}" class="text-gray-600 hover:text-gray-900">Se connecter</a>
+                    <a href="{{ path('app_register') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">S'inscrire</a>
+                    {% else %}
+                    <a href="{{ path('deconnexion') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Se deconnecter</a>
+                    <a href="{{ path('profil', {'id': 1 }) }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Profil</a>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <body class="bg-gray-50 dark:bg-gray-900">
         {% block body %}{% endblock %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     </body>
 </html>
