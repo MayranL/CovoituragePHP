@@ -1,0 +1,37 @@
+{# templates/utilisateur/inscription.html.twig #}
+
+{% include 'base.html.twig' %}
+
+{% block content %}
+    {% if error is defined and error %}
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+    <div style="margin-top: 5vw">
+    <section class="">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <div class="w-1/2 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Ajouter un trajet
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" method="POST" action="{{ path('creer_annonce') }}">
+                        {{ form_start(form) }}
+                        {{ form_row(form.villeDepart) }}
+                        {{ form_row(form.villeArrive) }}
+                        {{ form_row(form.date) }}
+                        {{ form_row(form.prix) }}
+                        {{ form_row(form.modeleV) }}
+                        {{ form_row(form.nbplace) }}
+                        <div class="flex justify-center items-center">
+                        {{ form_end(form) }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+{% endblock %}

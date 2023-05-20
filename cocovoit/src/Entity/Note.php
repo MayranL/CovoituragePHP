@@ -32,9 +32,9 @@ class Note
     private $note;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Commentaire")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Annonce")
      */
-    private $commentaire;
+    private $annonce;
 
     // Ajoutez ici les getters et les setters...
 
@@ -79,15 +79,20 @@ class Note
         return $this;
     }
 
-    public function getCommentaire(): ?Commentaire
+    /**
+     * @return mixed
+     */
+    public function getAnnonce()
     {
-        return $this->commentaire;
+        return $this->annonce;
     }
 
-    public function setCommentaire(?Commentaire $commentaire): self
+    /**
+     * @param mixed $annonce
+     */
+    public function setAnnonce($annonce): void
     {
-        $this->commentaire = $commentaire;
-
-        return $this;
+        $this->annonce = $annonce;
     }
+
 }

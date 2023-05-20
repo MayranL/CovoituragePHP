@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ConnexionType;
 use App\Form\InscriptionType;
+use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,12 +41,13 @@ class UserController extends AbstractController
     /**
      * @Route("/profile}", name="profil")
      */
-    public function profil(Security $security): Response
+    public function profil(Security $security, AnnonceRepository $annonceRepository): Response
     {
-        dump($security->getUser());
+        $annonces = $annonceRepository->findExpiredByUser($security->getUser()->getId());
 
         return $this->render('utilisateur/profil.html.twig', [
-            'user' => $security->getUser()->getNom(),
+            'user' => $security->getUser(),
+            'annonces' => $annonces,
         ]);
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity
@@ -23,6 +25,7 @@ class Reservation
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Annonce", inversedBy="reservations")
+     *
      */
     private $annonce;
 
@@ -44,6 +47,13 @@ class Reservation
 
         return $this;
     }
+    public function getOld()
+    {
+        $currentDate = new DateTime();
+        $date = $this->annonce->getDate();
+        return $date < $currentDate;
+    }
+
 
     public function getAnnonce(): ?Annonce
     {

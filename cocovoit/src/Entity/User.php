@@ -59,6 +59,18 @@ class User implements UserInterface
      */
     private $reservations;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2,nullable=true)
+     */
+    private $note;
+
+    // ...
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
@@ -218,6 +230,41 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param mixed $note
+     */
+    public function setNote($note): void
+    {
+        $this->note = $note;
+    }
+
+
+
 
     /**
      * Returning a salt is only needed, if you are not using a modern
