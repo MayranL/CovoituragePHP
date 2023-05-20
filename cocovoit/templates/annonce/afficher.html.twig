@@ -8,20 +8,42 @@
             {{ error.messageKey|trans(error.messageData, 'security') }}
         </div>
     {% endif %}
+    <nav style="top: 5rem;" class="absolute left-5 flex dark:text-white dark:bg-gray-900 " aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="{{ path('dashboard') }}" class="inline-flex items-center text-sm font-medium hover:text-gray-70">
+                    <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                    Accueil
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <a href="{{ path('annonces') }}" class="ml-1 text-sm font-medium hover:text-gray-700  md:ml-2 ">Trajets</a>
+                </div>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <a href="{{ path('afficher_annonce',  {'id': annonce.id}) }}" class="ml-1 text-sm font-medium hover:text-gray-700  md:ml-2 ">Trajet : {{ annonce.villeDepart }} - {{ annonce.villeArrive }}</a>
+                </div>
+            </li>
+        </ol>
+    </nav>
     <div class="max-w-lg mx-auto">
-        <div class="bg-white shadow p-4 rounded-lg mb-4">
+        <div class="bg-white shadow p-4 rounded-lg mb-4 dark:text-white dark:bg-gray-800">
             <h2 class="text-2xl font-bold mb-2">{{ annonce.villeDepart }} - {{ annonce.villeArrive }}</h2>
-            <p class="text-gray-600 mb-4">Conducteur : {{ annonce.conducteur.nom }} {{ annonce.conducteur.prenom }}</p>
-            <p class="text-gray-600 mb-4">Prix : {{ annonce.prix }} €</p>
-            <p class="text-gray-600 mb-4">Modèle de voiture : {{ annonce.modeleV }}</p>
-            <p class="text-gray-600 mb-4">Nombre de places disponibles : {{ annonce.nbplace|number_format(0, '.', '') }}</p>
-            <p class="text-gray-600 mb-4">Date : {{ date|date('d/m/Y à H:i') }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">Conducteur : {{ annonce.conducteur.nom }} {{ annonce.conducteur.prenom }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">Prix : {{ annonce.prix }} €</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">Modèle de voiture : {{ annonce.modeleV }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">Nombre de places disponibles : {{ annonce.nbplace|number_format(0, '.', '') }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">Date : {{ date|date('d/m/Y à H:i') }}</p>
             {% if not old %}
             <div class="mt-4 text-right">
                 <!-- Formulaire de réservation -->
                 <form action="{{ path('faire_reservation', {'id': annonce.id}) }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token('reservation') }}">
-                    <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-lg">Faire une réservation</button>
+                    <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Faire une réservation</button>
                 </form>
             </div>
             {% endif %}

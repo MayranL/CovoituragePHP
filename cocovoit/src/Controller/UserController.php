@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\ConnexionType;
-use App\Form\InscriptionType;
+
+use App\Form\UserUpdateFormType;
 use App\Repository\AnnonceRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,13 +42,33 @@ class UserController extends AbstractController
     /**
      * @Route("/profile}", name="profil")
      */
-    public function profil(Security $security, AnnonceRepository $annonceRepository): Response
+    public function profil(Request $request,Security $security, AnnonceRepository $annonceRepository, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $form = $this->createForm(UserUpdateFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('password')->getData() !== null){
+                $user->setPassword(
+                    $this->passwordencoder->encodePassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+            }
+
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+        }
         $annonces = $annonceRepository->findExpiredByUser($security->getUser()->getId());
 
         return $this->render('utilisateur/profil.html.twig', [
             'user' => $security->getUser(),
             'annonces' => $annonces,
+            'form' => $form->createView(),
         ]);
     }
 

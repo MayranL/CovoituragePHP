@@ -19,36 +19,36 @@ class AnnonceType extends AbstractType
             ->add('villeDepart', TextType::class, [
                 'label' => 'Ville de départ',
                 'attr' => [
-                    'class' => 'w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+                    'class' => 'w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white dark:bg-gray-700',
                 ],
             ])
             ->add('villeArrive', TextType::class, [
                 'label' => 'Ville d\'arrivée',
                 'attr' => [
-                    'class' => 'w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+                    'class' => 'w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ddark:text-white dark:bg-gray-700',
                 ],
             ])
             ->add('prix', NumberType::class, [
                 'label' => 'Prix',
                 'attr' => [
-                    'class' => 'w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+                    'class' => 'w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white dark:bg-gray-700',
                 ],
             ])->add('date', DateTimeType::class, [
                 'label' => 'Date',
                 'widget' => 'single_text',
-                'attr' => ['class' => 'w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'],
+                'attr' => ['class' => 'w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white dark:bg-gray-700'],
                 // D'autres options de configuration si nécessaire
             ])
             ->add('modeleV', TextType::class, [
                 'label' => 'Modèle du véhicule',
                 'attr' => [
-                    'class' => 'w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+                    'class' => 'w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white dark:bg-gray-700',
                 ],
             ])
             ->add('nbplace', NumberType::class, [
                 'label' => 'Nombre de places',
                 'attr' => [
-                    'class' => 'w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+                    'class' => 'w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white dark:bg-gray-700',
                 ],
             ])
             ->add('connect', SubmitType::class, [

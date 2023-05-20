@@ -23,9 +23,31 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces", name="annonces")
      */
-    public function index(AnnonceRepository $annonceRepository): Response
+    public function index(Request $request, AnnonceRepository $annonceRepository): Response
     {
-        $annonces = $annonceRepository->findallNotOld();
+        $departure = $request->query->get('departure');
+        $arrival = $request->query->get('arrival');
+        $date = $request->query->get('date');
+
+        $annonces = [];
+
+        if ($departure && $arrival && $date) {
+            $annonces = $annonceRepository->findByDepartureArrivalAndHour($departure, $arrival, $date);
+        } elseif ($departure && $date){
+            $annonces = $annonceRepository->findByDepartureAndHour($departure, $date);
+        } elseif ($arrival && $date){
+            $annonces = $annonceRepository->findByArrivalAndHour($arrival, $date);
+        } elseif ($departure && $arrival) {
+            $annonces = $annonceRepository->findByDepartureAndArrival($departure, $arrival);
+        } elseif ($departure) {
+            $annonces = $annonceRepository->findByDeparture($departure);
+        } elseif ($arrival) {
+            $annonces = $annonceRepository->findByArrival($arrival);
+        } elseif ($date) {
+            $annonces = $annonceRepository->findByHour($date);
+        } else {
+            $annonces = $annonceRepository->findAllNotOld();
+        }
 
         return $this->render('annonce/annonces.html.twig', [
             'annonces' => $annonces,
@@ -37,8 +59,11 @@ class AnnonceController extends AbstractController
      */
     public function creerAnnonce(Request $request,Security $security): Response
     {
+       if (!$this->getUser()) {
+            $this->addflash('error', 'Vous devez être connecté pour effectuer une réservation.');
+            return $this->redirectToRoute('login');
+        }
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
         // Création du formulaire d'annonce
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -89,6 +114,10 @@ class AnnonceController extends AbstractController
      */
     public function supprimerAnnonce($id, Request $request, Security $security, AnnonceRepository $annonceRepository): Response
     {
+        if (!$this->getUser()) {
+            $this->addflash('error', 'Vous devez être connecté pour effectuer une réservation.');
+            return $this->redirectToRoute('login');
+        }
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $entityManager = $this->getDoctrine()->getManager();
@@ -112,6 +141,10 @@ class AnnonceController extends AbstractController
      */
     public function modifierAnnonce(Request $request, Security $security, $id, AnnonceRepository $annonceRepository): Response
     {
+        if (!$this->getUser()) {
+            $this->addflash('error', 'Vous devez être connecté pour effectuer une réservation.');
+            return $this->redirectToRoute('login');
+        }
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $entityManager = $this->getDoctrine()->getManager();
