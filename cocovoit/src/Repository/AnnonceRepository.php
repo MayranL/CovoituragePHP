@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\Annonce;
 
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -50,6 +51,7 @@ class AnnonceRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('a')
             ->andWhere('not a.date < :currentDate')
+            ->andWhere('a.nbplace > 0')
             ->setParameter('currentDate', new \DateTime())
             ->getQuery();
 
@@ -59,10 +61,10 @@ class AnnonceRepository extends ServiceEntityRepository
     public function findByDeparture($departure)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.villeDepart = :departure')
+            ->andWhere('a.villeDepart LIKE :departure')
             ->andWhere('not a.date < :currentDate')
             ->setParameter('currentDate', new \DateTime())
-            ->setParameter('departure', $departure)
+            ->setParameter('departure', '%' . $departure . '%')
             ->getQuery()
             ->getResult();
     }
@@ -70,19 +72,10 @@ class AnnonceRepository extends ServiceEntityRepository
     public function findByArrival($arrival)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.villeArrive = :arrival')
+            ->andWhere('a.villeArrive LIKE :arrival')
             ->andWhere('not a.date < :currentDate')
             ->setParameter('currentDate', new \DateTime())
-            ->setParameter('arrival', $arrival)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByHour($hour)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.date > :hour')
-            ->setParameter('hour', $hour)
+            ->setParameter('arrival', '%' . $arrival . '%')
             ->getQuery()
             ->getResult();
     }
@@ -90,22 +83,11 @@ class AnnonceRepository extends ServiceEntityRepository
     public function findByDepartureAndArrival($departure, $arrival)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.villeDepart = :departure')
-            ->andWhere('a.villeArrive = :arrival')
+            ->andWhere('a.villeDepart LIKE :departure')
+            ->andWhere('a.villeArrive LIKE :arrival')
             ->andWhere('not a.date < :currentDate')
             ->setParameter('currentDate', new \DateTime())
-            ->setParameters(['departure' => $departure, 'arrival' => $arrival])
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByDepartureArrivalAndHour($departure, $arrival, $hour)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.villeDepart = :departure')
-            ->andWhere('a.villeArrive = :arrival')
-            ->andWhere('a.date > :hour')
-            ->setParameters(['departure' => $departure, 'arrival' => $arrival, 'hour' => $hour])
+            ->setParameters(['departure' => '%' . $departure . '%', 'arrival' => '%' . $arrival . '%'])
             ->getQuery()
             ->getResult();
     }
@@ -113,20 +95,44 @@ class AnnonceRepository extends ServiceEntityRepository
     public function findByDepartureAndHour($departure, $hour)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.villeDepart = :departure')
+            ->andWhere('a.villeDepart LIKE :departure')
             ->andWhere('a.date > :hour')
-            ->setParameters(['departure' => $departure, 'hour' => $hour])
+            ->setParameter('departure', '%' . $departure . '%')
+            ->setParameter('hour', $hour)
             ->getQuery()
             ->getResult();
     }
+
     public function findByArrivalAndHour($arrival, $hour)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.villeArrive = :arrival')
+            ->andWhere('a.villeArrive LIKE :arrival')
             ->andWhere('a.date > :hour')
-            ->setParameters(['arrival' => $arrival, 'hour' => $hour])
+            ->setParameter('arrival', '%' . $arrival . '%')
+            ->setParameter('hour', $hour)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findByDepartureArrivalAndHour($departure, $arrival, $hour)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.villeDepart LIKE :departure')
+            ->andWhere('a.villeArrive LIKE :arrival')
+            ->andWhere('a.date > :hour')
+            ->setParameters(['departure' => '%' . $departure . '%', 'arrival' => '%' . $arrival . '%', 'hour' => $hour])
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByRandomAnnonceExceptUser(User $user)
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->join('a.conducteur', 'c')
+            ->where('c != :user')
+            ->setParameter('user', $user);
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
 

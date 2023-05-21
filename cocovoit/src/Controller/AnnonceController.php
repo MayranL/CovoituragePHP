@@ -11,6 +11,7 @@ use App\Form\CommentaireType;
 use App\Repository\AnnonceRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\NoteRepository;
+use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,12 +93,12 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce/{id}", name="afficher_annonce")
      */
-    public function afficherAnnonce($id,AnnonceRepository $annonceRepository, CommentaireRepository $commentaireRepository): Response
+    public function afficherAnnonce($id,ReservationRepository  $reservationRepository,AnnonceRepository $annonceRepository, CommentaireRepository $commentaireRepository): Response
     {
         $annonce = $annonceRepository->findOneBy(['id'=> $id]);
         $commentaires = $commentaireRepository->findby(['annonce'=> $id]);
         $user = $this->getUser();
-        dump($annonce->getOld());
+        $reservations = $reservationRepository->findBy(['annonce' => $annonce]);
 
         return $this->render('annonce/afficher.html.twig', [
             'id' => $id,
@@ -106,6 +107,7 @@ class AnnonceController extends AbstractController
             'commentaires' => $commentaires,
             'user' => $user,
             'old' => $annonce->getOld(),
+            'reservations' => $reservations,
         ]);
     }
 

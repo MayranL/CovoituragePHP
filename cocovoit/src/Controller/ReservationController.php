@@ -38,33 +38,35 @@ class ReservationController extends AbstractController
         }
 
         // Vérifier s'il y a au moins une place disponible dans l'annonce
-        if ($annonce->getNbplace() === 0) {
+        if ($annonce->getNbplace() > 0) {
+            dump($annonce->getNbplace());
+            $reservation = new Reservation();
+            $reservation->setPassager($user);
+            $reservation->setAnnonce($annonce);
+            $annonce->setNbplace($annonce->getNbplace() - 1);
+
+            // Sauvegarde de la réservation en base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+
+            // Ajouter un message flash de succès
+            $flashBag->add('success', 'Réservation effectuée avec succès.');
+
+            // Redirection vers la page de succès ou autre action souhaitée
+            return $this->redirectToRoute('annonces');
+        }else{
             $flashBag->add('error', 'Aucune place disponible pour cette annonce.');
             return $this->redirectToRoute('annonces');
         }
 
-        // Création d'une nouvelle réservation
-        $reservation = new Reservation();
-        $reservation->setPassager($user);
-        $reservation->setAnnonce($annonce);
-        $annonce->setNbplace($annonce->getNbplace() - 1);
 
-        // Sauvegarde de la réservation en base de données
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($reservation);
-        $entityManager->flush();
-
-        // Ajouter un message flash de succès
-        $flashBag->add('success', 'Réservation effectuée avec succès.');
-
-        // Redirection vers la page de succès ou autre action souhaitée
-        return $this->redirectToRoute('annonces');
     }
 
     /**
      * @Route("/reservation/{id}/supprimer", name="supprimer_reservation")
      */
-    public function supprimerReservation(Request $request, Reservation $reservation, FlashBagInterface $flashBag): Response
+    public function supprimerReservation($id,Request $request, Reservation $reservation, FlashBagInterface $flashBag): Response
     {
         // Vérifier si l'utilisateur est connecté
         if (!$this->getUser()) {

@@ -88,7 +88,32 @@
             </div>
         </div>
         {% endif %}
-
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold">Réservations</h2>
+            {% if reservations is not empty %}
+                <ul class="mt-4 space-y-2">
+                    {% for reservation in reservations %}
+                        <li class="flex items-center">
+                            <div class="flex items-center">
+                                <div class="h-10 w-10 bg-gray-200 rounded-full flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="{{ asset('images/profil.png') }}" alt="{{ reservation.passager.username }}">
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-lg font-bold">{{ reservation.passager.username }}</div>
+                                    {% if reservation.getOld() %}
+                                        <div class="text-sm text-gray-500">La date de cette annonce est passée.</div>
+                                    {% else %}
+                                        <div class="text-sm text-gray-500">La date de cette annonce est à venir.</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="mt-4 text-gray-500">Aucune réservation pour cette annonce.</p>
+            {% endif %}
+        </div>
 
     </div>
 
