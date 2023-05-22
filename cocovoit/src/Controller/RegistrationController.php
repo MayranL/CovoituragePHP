@@ -76,7 +76,7 @@ class RegistrationController extends AbstractController
             // Récupérer l'utilisateur à partir de l'email
             $existingUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
-            if ($existingUser && $userPasswordEncoder->isPasswordValid($existingUser, $user->getPassword())) {
+            if ($existingUser) {
                 // Connexion réussie
                 return $guardHandler->authenticateUserAndHandleSuccess(
                     $existingUser,

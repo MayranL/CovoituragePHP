@@ -25,6 +25,7 @@ class CommentaireController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $entityManager = $this->getDoctrine()->getManager();
+
         $commentaire = $commentaireRepository->findOneBy(['id' => $id]);
 
         if ($user->getId() === $commentaire->getAuteur()->getId()) {

@@ -12,6 +12,7 @@ use App\Repository\AnnonceRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\NoteRepository;
 use App\Repository\ReservationRepository;
+use Faker\Core\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -114,7 +115,7 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonce/{id}/delete", name="supprimer_annonce")
      */
-    public function supprimerAnnonce($id, Request $request, Security $security, AnnonceRepository $annonceRepository): Response
+    public function supprimerAnnonce($id, Request $request, Security $security, AnnonceRepository $annonceRepository, ReservationRepository $reservationRepository): Response
     {
         if (!$this->getUser()) {
             $this->addflash('error', 'Vous devez être connecté pour effectuer une réservation.');
@@ -125,8 +126,14 @@ class AnnonceController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $annonce = $annonceRepository->findOneBy(['id' => $id]);
 
-        if ($user->getId() === $annonce->getConducteur()->getId()) {
+        if ($user->getId() === $annonce->getConducteur()->getId() and $annonce->getDate()->getTimestamp()>time()) {
             // Supprimer l'annonce
+            $reservations = $reservationRepository->findBy(['annonce' => $id]);
+            foreach ($reservations as $reservation){
+                $entityManager->remove($reservation);
+                $entityManager->flush();
+            }
+
             $entityManager->remove($annonce);
             $entityManager->flush();
 

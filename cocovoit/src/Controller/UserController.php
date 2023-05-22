@@ -85,24 +85,9 @@ class UserController extends AbstractController
      */
     public function faker(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder, UserRepository $userRepository, AnnonceRepository $annonceRepository): Response
     {
-        $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
-            $user = new User();
-            $user->setEmail($faker->email);
-            $user->setNom($faker->lastName);
-            $user->setPrenom($faker->firstName);
-            $user->setRoles(['ROLE_USER']);
-            $user->setPassword(
-                $userPasswordEncoder->encodePassword(
-                    $user,
-                    $faker->password
-                )
-            );
-            $user->setCreatedAt($faker->dateTimeThisYear);
-            $user->setNote($faker->randomFloat(2, 0, 5));
-            $entityManager->persist($user);
-        }
+
+
         $entityManager->flush();
             for ($j = 0; $j < 10; $j++) {
                 $annonce = new Annonce();
