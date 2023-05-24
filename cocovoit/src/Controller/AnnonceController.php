@@ -96,6 +96,10 @@ class AnnonceController extends AbstractController
      */
     public function afficherAnnonce($id,ReservationRepository  $reservationRepository,AnnonceRepository $annonceRepository, CommentaireRepository $commentaireRepository): Response
     {
+        if (!$this->getUser()) {
+            $this->addflash('error', 'Vous devez être connecté pour voir ce trajet en détail.');
+            return $this->redirectToRoute('login');
+        }
         $annonce = $annonceRepository->findOneBy(['id'=> $id]);
         $commentaires = $commentaireRepository->findby(['annonce'=> $id]);
         $user = $this->getUser();
