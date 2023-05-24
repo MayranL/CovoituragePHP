@@ -34,4 +34,4 @@ security:
          - { path: ^/profile, roles: ROLE_USER }
     encoders:
         App\Entity\User:
-            algorithm: bcrypt
+            algorithm: auto

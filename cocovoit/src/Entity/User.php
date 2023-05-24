@@ -263,7 +263,15 @@ class User implements UserInterface
         $this->note = $note;
     }
 
-
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function hashPassword(): void
+    {
+        $hashedPassword = password_hash($this->password, PASSWORD_BCRYPT);
+        $this->password = $hashedPassword;
+    }
 
 
     /**

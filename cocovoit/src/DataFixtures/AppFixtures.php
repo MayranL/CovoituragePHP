@@ -33,6 +33,7 @@ class AppFixtures extends Fixture
             $user->setPrenom($faker->firstName);
             $user->setRoles(['ROLE_USER']);
             $user->setPassword('toto');
+            $user->hashPassword();
             $user->setCreatedAt($faker->dateTimeThisYear);
             $user->setNote($faker->randomFloat(2, 0, 5));
             $manager->persist($user);
