@@ -1,8 +1,4 @@
-{# templates/utilisateur/inscription.html.twig #}
-
-{% include 'base.html.twig' %}
-
-{% block content %}
+{% block body %}
     {% if error is defined and error %}
         <div class="alert alert-danger">
             {{ error.messageKey|trans(error.messageData, 'security') }}

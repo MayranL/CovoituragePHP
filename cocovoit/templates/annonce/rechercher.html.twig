@@ -1,8 +1,6 @@
-{# templates/utilisateur/inscription.html.twig #}
+{% extends 'base.html.twig' %}
 
-{% include 'base.html.twig' %}
-
-{% block content %}
+{% block body %}
     {% if error is defined and error %}
 
         <div class="alert alert-danger">

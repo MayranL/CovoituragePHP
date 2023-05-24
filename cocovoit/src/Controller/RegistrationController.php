@@ -42,7 +42,6 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -82,7 +81,7 @@ class RegistrationController extends AbstractController
                     $existingUser,
                     $request,
                     $authenticator,
-                    'main' // nom du pare-feu (firewall) dans security.yaml
+                    'main'
                 );
             }
 
@@ -101,13 +100,9 @@ class RegistrationController extends AbstractController
      */
     public function deconnexion(AuthenticationUtils $authenticationUtils): Response
     {
-        // Ici, vous pouvez ajouter un traitement supplémentaire si nécessaire
-
-        // Déconnexion de l'utilisateur
         $this->get('security.token_storage')->setToken(null);
         $this->get('session')->invalidate();
 
-        // Redirection vers la page de connexion ou une autre page de votre choix
         return $this->redirectToRoute('connexion');
     }
 

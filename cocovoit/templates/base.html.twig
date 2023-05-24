@@ -2,16 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
         <title>{% block title %}Cocovoit{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
         {% endblock %}
-
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+            <script src="{{ asset('script/script.js') }}"></script>
         {% endblock %}
     </head>
     <header>
@@ -50,6 +47,30 @@
         </nav>
     </header>
     <body class="dark:text-white dark:bg-gray-900">
+    {% block body %}{% endblock %}
+    </body>
+    <footer class="mb-0 dark:text-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="w-full md:w-1/2">
+                    <p>&copy; 2023 CoCoVoit. Tous droits réservés.</p>
+                </div>
+                <div class="w-full md:w-1/2 mt-4 md:mt-0">
+                    <ul class="flex justify-end">
+                        <li class="mr-4">
+                            <a href="#" class="text-gray-400 hover:text-white">Accueil</a>
+                        </li>
+                        <li class="mr-4">
+                            <a href="#" class="text-gray-400 hover:text-white">À propos</a>
+                        </li>
+                        <li class="mr-4">
+                            <a href="#" class="text-gray-400 hover:text-white">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
     {% for flashMessage in app.session.flashbag.get('success') %}
         <div id="toast-success" class="absolute flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
             <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -77,8 +98,5 @@
             </button>
         </div>
     {% endfor %}
-        {% block body %}{% endblock %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-        <script src="{{ asset('script/script.js') }}"></script>
-    </body>
+
 </html>

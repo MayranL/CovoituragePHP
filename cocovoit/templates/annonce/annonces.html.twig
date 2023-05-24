@@ -1,15 +1,13 @@
-{# templates/utilisateur/inscription.html.twig #}
+{% extends 'base.html.twig' %}
 
-{% include 'base.html.twig' %}
-
-{% block content %}
+{% block body %}
     {% if error is defined and error %}
         <div class="alert alert-danger">
             {{ error.messageKey|trans(error.messageData, 'security') }}
         </div>
     {% endif %}
 
-    {% block body %}
+
         <nav style="top: 5rem;" class="absolute left-5 flex dark:text-white dark:bg-gray-900 " aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
@@ -110,7 +108,7 @@
             </div>
         </section>
         </div>
-    {% endblock %}
+
 
 
 {% endblock %}
