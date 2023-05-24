@@ -100,16 +100,6 @@
                 </div>
             </div>
             <div class="w-full space-y-4 md:space-y-6">
-                <h2 class="text-2xl font-bold mb-4">Mode Sombre</h2>
-                <div class="flex justify-start">
-                    <label class="flex items-center">
-                        <input id="toggleMode" type="checkbox" class="hidden">
-                        <div class="bg-gray-300 dark:bg-gray-700 w-14 h-8 rounded-full flex items-center pr-1 transition duration-300 ease-in-out">
-                            <div id="toggleButton" class="bg-white w-6 h-6 rounded-full shadow-md transform translate-x-0 transition duration-300 ease-in-out"></div>
-                        </div>
-                        <span class="ml-3 text-gray-700 dark:text-gray-300">Mode Sombre</span>
-                    </label>
-                </div>
                 <form class="w-full space-y-4 md:space-y-6" method="POST" action="{{ path('profil') }}">
                     <h2 class="text-2xl font-bold mb-4">Mettre à jour les données de {{ user.nom }}</h2>
                     {{ form_start(form) }}
