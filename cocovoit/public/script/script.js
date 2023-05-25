@@ -1,3 +1,21 @@
+$(document).ready(function() {
+    $('.slider').slick({
+        arrows: true,
+        prevArrow: '<button class="prev-arrow"></button>',
+        nextArrow: '<button class="next-arrow"></button>',
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        adaptiveHeight: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        fade: true,
+        cssEase: 'linear'
+    });
+});
+
+
 window.addEventListener('DOMContentLoaded', function() {
 
     const toggleMode = document.getElementById('toggleMode');
