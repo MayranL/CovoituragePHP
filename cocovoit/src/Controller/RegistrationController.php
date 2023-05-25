@@ -31,12 +31,8 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-            $userPasswordEncoder->encodePassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
+            $user->setPassword($form->get('password')->getData());
+            $user->hashPassword();
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new DateTime());
 
@@ -76,13 +72,17 @@ class RegistrationController extends AbstractController
             $existingUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
 
             if ($existingUser) {
-                // Connexion réussie
-                return $guardHandler->authenticateUserAndHandleSuccess(
-                    $existingUser,
-                    $request,
-                    $authenticator,
-                    'main'
-                );
+                if (password_verify($form->get('password')->getData(),$existingUser->getPassword())){
+                    return $guardHandler->authenticateUserAndHandleSuccess(
+                        $existingUser,
+                        $request,
+                        $authenticator,
+                        'main'
+                    );
+                }else{
+                    dump('coucou');
+                }
+
             }
 
             // Si la connexion échoue, ajoutez un message d'erreur

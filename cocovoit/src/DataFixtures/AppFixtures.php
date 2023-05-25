@@ -22,6 +22,7 @@ class AppFixtures extends Fixture
         $admin->setPrenom('admin');
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPassword('toto');
+        $admin->hashPassword();
         $admin->setCreatedAt($faker->dateTimeThisYear);
         $admin->setNote(5);
         $manager->persist($admin);
