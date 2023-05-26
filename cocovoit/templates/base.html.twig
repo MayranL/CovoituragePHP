@@ -53,30 +53,27 @@
                     <img class="w-20 h-8 mr-2" src="{{ asset('images/log.png') }}" alt="logo">
                 </a>
                 <div class="flex items-center lg:order-2">
-
-
-
                     {% if not app.user %}
                     <a href="{{ path('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Se connecter</a>
                     <a href="{{ path('app_register') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">S'inscrire</a>
                     {% else %}
-                    <a href="{{ path('deconnexion') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Se deconnecter</a>
-                    <a href="{{ path('profil') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Profil</a>
+                    {% if nombredereservation %}
+                    <a class="liennotif" href="{{ path('reservations') }}">
+                    <span class="notif text-white absolute inline-block w-4 h-4 font-bold text-xs mr-2 bg-red-600 rounded-full dark:text-white">{{ nombredereservation }}</span>
+                    </a>
                     {% endif %}
-
-                    <label class="flex items-center ml-4">
-                        <input id="toggleMode" class='toggle-checkbox' type='checkbox'>
-                        <div class='toggle-slot'>
-                            <div class='sun-icon-wrapper'>
-                                <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
-                            </div>
-                            <div id="toggleButton" class='toggle-button'></div>
-                            <div class='moon-icon-wrapper'>
-                                <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
-                            </div>
-                        </div>
-                    </label>
-
+                    <a href="{{ path('reservations') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" />
+                        </svg>
+                    </a>
+                    <a href="{{ path('profil') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Profil</a>
+                    <a href="{{ path('deconnexion') }}" class="ml-2 text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                        </svg>
+                    </a>
+                    {% endif %}
                 </div>
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -91,6 +88,18 @@
                         </li>
                     </ul>
                 </div>
+                <label class="nuit absolute flex items-center ml-4">
+                    <input id="toggleMode" class='toggle-checkbox' type='checkbox'>
+                    <div class='toggle-slot'>
+                        <div class='sun-icon-wrapper'>
+                            <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                        </div>
+                        <div id="toggleButton" class='toggle-button'></div>
+                        <div class='moon-icon-wrapper'>
+                            <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+                        </div>
+                    </div>
+                </label>
             </div>
             <hr class="mt-4 lg:mt-6 px-4 lg:px-6 py-2.5 dark:text-white dark:bg-gray-900">
         </nav>

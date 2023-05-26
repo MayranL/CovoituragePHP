@@ -38,9 +38,20 @@ class UserController extends AbstractController
      */
     public function dashboard(): Response
     {
-        // Logique de récupération et d'affichage du profil de l'utilisateur
+        $numberofresa = 0;
+        if($this->getUser()){
+            $user = $this->getUser();
+
+            foreach ($user->getReservations() as $reservation){
+                if (!$reservation->getOld()){
+                    $numberofresa += 1;
+                }
+            }
+        }
+
 
         return $this->render('index.html.twig', [
+            'nombredereservation'=>$numberofresa,
         ]);
     }
 
@@ -67,8 +78,13 @@ class UserController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
         }
-        dump($user->getReservations());
-        dump(count($user->getReservations()));
+
+        $numberofresa = 0;
+        foreach ($user->getReservations() as $reservation){
+            if (!$reservation->getOld()){
+                $numberofresa += 1;
+            }
+        }
 
         $annonces = $annonceRepository->findExpiredByUser($security->getUser()->getId());
 
@@ -76,6 +92,7 @@ class UserController extends AbstractController
             'user' => $security->getUser(),
             'annonces' => $annonces,
             'form' => $form->createView(),
+            'nombredereservation'=>$numberofresa,
         ]);
     }
 

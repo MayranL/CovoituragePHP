@@ -53,8 +53,19 @@ class AnnonceController extends AbstractController
             }
         }
 
+        if($this->getUser()){
+            $user = $this->getUser();
+            $numberofresa = 0;
+            foreach ($user->getReservations() as $reservation){
+                if (!$reservation->getOld()){
+                    $numberofresa += 1;
+                }
+            }
+        }
+
         return $this->render('annonce/annonces.html.twig', [
             'annonces' => $annonces,
+            'nombredereservation'=>$numberofresa,
         ]);
     }
 
@@ -87,9 +98,20 @@ class AnnonceController extends AbstractController
             // Rediriger vers la page d'affichage de l'annonce
             return $this->redirectToRoute('afficher_annonce', ['id' => $annonce->getId()]);
         }
+
+        if($this->getUser()){
+            $user = $this->getUser();
+            $numberofresa = 0;
+            foreach ($user->getReservations() as $reservation){
+                if (!$reservation->getOld()){
+                    $numberofresa += 1;
+                }
+            }
+        }
         // Affichage du formulaire
         return $this->render('annonce/creer.html.twig', [
             'form' => $form->createView(),
+            'nombredereservation'=>$numberofresa,
         ]);
     }
 
@@ -111,6 +133,12 @@ class AnnonceController extends AbstractController
         $user = $this->getUser();
         $reservations = $reservationRepository->findBy(['annonce' => $annonce]);
 
+        $numberofresa = 0;
+        foreach ($user->getReservations() as $reservation){
+            if (!$reservation->getOld()){
+                $numberofresa += 1;
+            }
+        }
         return $this->render('annonce/afficher.html.twig', [
             'id' => $id,
             'annonce' => $annonce,
@@ -119,6 +147,7 @@ class AnnonceController extends AbstractController
             'user' => $user,
             'old' => $annonce->getOld(),
             'reservations' => $reservations,
+            'nombredereservation'=>$numberofresa,
         ]);
     }
 
@@ -183,10 +212,18 @@ class AnnonceController extends AbstractController
                 return $this->redirectToRoute('afficher_annonce', ['id' => $annonce->getId()]);
             }
 
+            $numberofresa = 0;
+            foreach ($user->getReservations() as $reservation){
+                if (!$reservation->getOld()){
+                    $numberofresa += 1;
+                }
+            }
+
             // Affichage du formulaire
             return $this->render('annonce/modifier.html.twig', [
                 'id' => $id,
                 'form' => $form->createView(),
+                'nombredereservation'=>$numberofresa,
             ]);
         }
 

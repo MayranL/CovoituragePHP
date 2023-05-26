@@ -45,10 +45,10 @@ window.addEventListener('DOMContentLoaded', function() {
     function updateMode(isDarkMode) {
         if (isDarkMode) {
             document.documentElement.classList.add('dark');
-            toggleButton.style.transform = 'translate(0.21875em, 0.21875em)';
+            toggleButton.style.transform = 'translate(0.21875em, 0.20875em)';
         } else {
             document.documentElement.classList.remove('dark');
-            toggleButton.style.transform = 'translate(1.46875em, 0.21875em)';
+            toggleButton.style.transform = 'translate(2em, 0.20875em)';
         }
     }
 

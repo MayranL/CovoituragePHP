@@ -8,12 +8,12 @@
 
 .toggle-slot {
     position: relative;
-    height: 1.25em; /* Réduit à 25% */
-    width: 2.5em; /* Réduit à 25% */
-    border: 1.25px solid #e4e7ec; /* Réduit à 25% */
-    border-radius: 2.5em; /* Réduit à 25% */
+    height: 1.7875em; /* Augmenté de 30% */
+    width: 3.575em; /* Augmenté de 30% */
+    border: 1.7875px solid #e4e7ec; /* Augmenté de 30% */
+    border-radius: 3.575em; /* Augmenté de 30% */
     background-color: white;
-    box-shadow: 0px 1.25px 3.125px #e4e7ec; /* Réduit à 25% */
+    box-shadow: 0px 1.7875px 4.4625px #e4e7ec; /* Augmenté de 30% */
     transition: background-color 250ms;
 }
 
@@ -22,62 +22,78 @@
 }
 
 .toggle-button {
-    transform: translate(1.46875em, 0.21875em); /* Réduit à 25% */
+    transform: translate(2.10039em, 0.31282em); /* Augmenté de 30% */
     position: absolute;
-    height: 0.8125em; /* Réduit à 25% */
-    width: 0.8125em; /* Réduit à 25% */
+    height: 1.16188em; /* Augmenté de 30% */
+    width: 1.16188em; /* Augmenté de 30% */
     border-radius: 50%;
     background-color: #ffeccf;
-    box-shadow: inset 0px 0px 0px 0.09375em #f9bf27; /* Réduit à 25% */
+    box-shadow: inset 0px 0px 0px 0.13469em #f9bf27; /* Augmenté de 30% */
     transition: background-color 250ms, border-color 250ms, transform 500ms cubic-bezier(.26,2,.46,.71);
 }
 
 .toggle-checkbox:checked ~ .toggle-slot .toggle-button {
     background-color: #485367;
-    box-shadow: inset 0px 0px 0px 0.09375em white; /* Réduit à 25% */
-    transform: translate(0.21875em, 0.21875em); /* Réduit à 25% */
+    box-shadow: inset 0px 0px 0px 0.13469em white; /* Augmenté de 30% */
+    transform: translate(0.31282em, 0.31282em); /* Augmenté de 30% */
 }
 
 .sun-icon {
     position: absolute;
-    height: 0.75em; /* Réduit à 25% */
-    width: 0.75em; /* Réduit à 25% */
+    height: 1.0725em; /* Augmenté de 30% */
+    width: 1.0725em; /* Augmenté de 30% */
     color: #f9bf27;
 }
 
 .sun-icon-wrapper {
     position: absolute;
-    height: 0.75em; /* Réduit à 25% */
-    width: 0.75em; /* Réduit à 25% */
+    height: 1.0725em; /* Augmenté de 30% */
+    width: 1.0725em; /* Augmenté de 30% */
     opacity: 1;
-    transform: translate(0.25em, 0.25em) rotate(15deg);
+    transform: translate(0.3575em, 0.3575em) rotate(15deg);
     transform-origin: 50% 50%;
     transition: opacity 150ms, transform 500ms cubic-bezier(.26,2,.46,.71);
 }
 
 .toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper {
     opacity: 0;
-    transform: translate(0.375em, 0.25em) rotate(0deg); /* Réduit à 25% */
+    transform: translate(1.46875em, 0.3575em) rotate(50deg); /* Augmenté de 30% */
 }
 
 .moon-icon {
     position: absolute;
-    height: 0.75em; /* Réduit à 25% */
-    width: 0.75em; /* Réduit à 25% */
+    height: 1.0725em; /* Augmenté de 30% */
+    width: 1.0725em; /* Augmenté de 30% */
     color: white;
 }
 
 .moon-icon-wrapper {
     position: absolute;
-    height: 0.75em; /* Réduit à 25% */
-    width: 0.75em; /* Réduit à 25% */
+    height: 1.0725em; /* Augmenté de 30% */
+    width: 1.0725em; /* Augmenté de 30% */
     opacity: 0;
-    transform: translate(1.375em, 0.25em) rotate(0deg); /* Réduit à 25% */
+    transform: translate(1.965em, 0.3575em) rotate(0deg); /* Augmenté de 30% */
     transform-origin: 50% 50%;
     transition: opacity 150ms, transform 500ms cubic-bezier(.26,2.5,.46,.71);
 }
 
 .toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper {
     opacity: 1;
-    transform: translate(1.5em, 0.25em) rotate(-15deg); /* Réduit à 25% */
+    transform: translate(2.145em, 0.3575em) rotate(-15deg); /* Augmenté de 30% */
+}
+
+.nuit{
+    top: 17px;
+    right: 30px;
+}
+
+.notif{
+    padding-left: 4px ;
+    margin-left: 24px;
+    margin-bottom: 20px;
+}
+
+.liennotif{
+    position: absolute;
+    margin-bottom: 34px;
 }

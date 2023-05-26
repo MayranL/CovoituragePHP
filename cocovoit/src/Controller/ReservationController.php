@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Entity\Annonce;
+use App\Repository\AnnonceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -100,18 +101,24 @@ class ReservationController extends AbstractController
     /**
      * @Route("/reservations", name="reservations")
      */
-    public function consulterReservation(Request $request, FlashBagInterface $flashBag): Response
+    public function consulterReservation(Request $request, FlashBagInterface $flashBag, AnnonceRepository $annonceRepository): Response
     {
         // Vérifier si l'utilisateur est connecté
         if (!$this->getUser()) {
-            $flashBag->add('error', 'Vous devez être connecté pour supprimer une réservation.');
+            $flashBag->add('error', 'Vous devez être connecté pour consulter vos réservations.');
             return $this->redirectToRoute('login');
         }
 
         $user = $this->getUser();
-
+        $numberofresa = 0;
+        foreach ($user->getReservations() as $reservation){
+            if (!$reservation->getOld()){
+                $numberofresa += 1;
+            }
+        }
         return $this->render('reservation/reservations.html.twig', [
-            'test' => 'test',
+            'user' => $user,
+            'nombredereservation'=>$numberofresa
         ]);
     }
 
