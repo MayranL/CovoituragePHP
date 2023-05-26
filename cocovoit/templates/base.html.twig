@@ -6,13 +6,13 @@
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-
+            <link rel="stylesheet" type="text/css" href="{{ asset('style/style.css') }}"/>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
         {% endblock %}
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+            <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
             <script src="{{ asset('script/script.js') }}"></script>
@@ -63,12 +63,20 @@
                     <a href="{{ path('deconnexion') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Se deconnecter</a>
                     <a href="{{ path('profil') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Profil</a>
                     {% endif %}
+
                     <label class="flex items-center ml-4">
-                        <input id="toggleMode" type="checkbox" class="hidden">
-                        <div class="bg-gray-300 dark:bg-gray-700 w-14 h-8 rounded-full flex items-center pr-1 transition duration-300 ease-in-out">
-                            <div id="toggleButton" class="bg-white w-6 h-6 rounded-full shadow-md transform translate-x-0 transition duration-300 ease-in-out"></div>
+                        <input id="toggleMode" class='toggle-checkbox' type='checkbox'>
+                        <div class='toggle-slot'>
+                            <div class='sun-icon-wrapper'>
+                                <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                            </div>
+                            <div id="toggleButton" class='toggle-button'></div>
+                            <div class='moon-icon-wrapper'>
+                                <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+                            </div>
                         </div>
                     </label>
+
                 </div>
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
