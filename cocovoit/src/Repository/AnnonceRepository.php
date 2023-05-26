@@ -4,18 +4,11 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
-
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @method Annonce|null find($id, $lockMode = null, $lockVersion = null)
- * @method Annonce|null findOneBy(array $criteria, array $orderBy = null)
- * @method Annonce[]    findAll()
- * @method Annonce[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class AnnonceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -23,18 +16,13 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
-    /**
-     * Récupère toutes les annonces dont la date est dépassée et associées à un utilisateur
-     *
-     * @param int $userId L'ID de l'utilisateur
-     * @return Annonce[] La liste des annonces correspondantes
-     */
     public function findExpiredByUser($userId): array
     {
         $qb = $this->createQueryBuilder('a')
             ->leftJoin('a.reservations', 'r', Join::WITH, 'r.passager = :userId')
             ->andWhere('a.date < :currentDate')
             ->andWhere('r.passager = :userId')
+            ->orderBy('a.date', 'DESC')
             ->setParameter('currentDate', new \DateTime())
             ->setParameter('userId', $userId)
             ->getQuery();
@@ -42,17 +30,12 @@ class AnnonceRepository extends ServiceEntityRepository
         return $qb->getResult();
     }
 
-    /**
-     * Récupère toutes les annonces dont la date est dépassée et associées à un utilisateur
-     *
-     * @return Annonce[] La liste des annonces correspondantes
-     */
     public function findallNotOld(): array
     {
         $qb = $this->createQueryBuilder('a')
             ->andWhere('not a.date < :currentDate')
             ->andWhere('a.nbplace > 0')
-            ->orderBy('a.date')
+            ->orderBy('a.date', 'ASC')
             ->setParameter('currentDate', new \DateTime())
             ->getQuery();
 
@@ -65,6 +48,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.villeDepart LIKE :departure')
             ->andWhere('not a.date < :currentDate')
             ->andWhere('a.nbplace > 0')
+            ->orderBy('a.date', 'ASC')
             ->setParameter('currentDate', new \DateTime())
             ->setParameter('departure', '%' . $departure . '%')
             ->getQuery()
@@ -77,6 +61,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.villeArrive LIKE :arrival')
             ->andWhere('not a.date < :currentDate')
             ->andWhere('a.nbplace > 0')
+            ->orderBy('a.date', 'ASC')
             ->setParameter('currentDate', new \DateTime())
             ->setParameter('arrival', '%' . $arrival . '%')
             ->getQuery()
@@ -90,6 +75,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.villeArrive LIKE :arrival')
             ->andWhere('not a.date < :currentDate')
             ->andWhere('a.nbplace > 0')
+            ->orderBy('a.date', 'ASC')
             ->setParameter('currentDate', new \DateTime())
             ->setParameters(['departure' => '%' . $departure . '%', 'arrival' => '%' . $arrival . '%'])
             ->getQuery()
@@ -102,6 +88,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.villeDepart LIKE :departure')
             ->andWhere('a.date > :hour')
             ->andWhere('a.nbplace > 0')
+            ->orderBy('a.date', 'ASC')
             ->setParameter('departure', '%' . $departure . '%')
             ->setParameter('hour', $hour)
             ->getQuery()
@@ -114,6 +101,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.villeArrive LIKE :arrival')
             ->andWhere('a.date > :hour')
             ->andWhere('a.nbplace > 0')
+            ->orderBy('a.date', 'ASC')
             ->setParameter('arrival', '%' . $arrival . '%')
             ->setParameter('hour', $hour)
             ->getQuery()
@@ -127,6 +115,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.villeArrive LIKE :arrival')
             ->andWhere('a.nbplace > 0')
             ->andWhere('a.date > :hour')
+            ->orderBy('a.date', 'ASC')
             ->setParameters(['departure' => '%' . $departure . '%', 'arrival' => '%' . $arrival . '%', 'hour' => $hour])
             ->getQuery()
             ->getResult();
@@ -137,10 +126,14 @@ class AnnonceRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('a')
             ->join('a.conducteur', 'c')
             ->where('c != :user')
+            ->orderBy('a.date', 'DESC')
             ->setParameter('user', $user);
 
         return $queryBuilder->getQuery()->getResult();
     }
 
-
+    public function findAll()
+    {
+        return $this->findBy(array(), array('date' => 'ASC'));
+    }
 }

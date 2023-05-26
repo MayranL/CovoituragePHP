@@ -97,6 +97,23 @@ class ReservationController extends AbstractController
         // Redirection vers la page de succès ou autre action souhaitée
         return $this->redirectToRoute('annonces');
     }
+    /**
+     * @Route("/reservations", name="reservations")
+     */
+    public function consulterReservation(Request $request, FlashBagInterface $flashBag): Response
+    {
+        // Vérifier si l'utilisateur est connecté
+        if (!$this->getUser()) {
+            $flashBag->add('error', 'Vous devez être connecté pour supprimer une réservation.');
+            return $this->redirectToRoute('login');
+        }
+
+        $user = $this->getUser();
+
+        return $this->render('reservation/reservations.html.twig', [
+            'test' => 'test',
+        ]);
+    }
 
 
 }

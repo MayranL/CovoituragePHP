@@ -25,30 +25,32 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces", name="annonces")
      */
-    public function index(Request $request, AnnonceRepository $annonceRepository): Response
+    public function index(Request $request, AnnonceRepository $annonceRepository,Security $security): Response
     {
         $departure = $request->query->get('departure');
         $arrival = $request->query->get('arrival');
         $date = $request->query->get('date');
-
         $annonces = [];
-
-        if ($departure && $arrival && $date) {
-            $annonces = $annonceRepository->findByDepartureArrivalAndHour($departure, $arrival, $date);
-        } elseif ($departure && $date){
-            $annonces = $annonceRepository->findByDepartureAndHour($departure, $date);
-        } elseif ($arrival && $date){
-            $annonces = $annonceRepository->findByArrivalAndHour($arrival, $date);
-        } elseif ($departure && $arrival) {
-            $annonces = $annonceRepository->findByDepartureAndArrival($departure, $arrival);
-        } elseif ($departure) {
-            $annonces = $annonceRepository->findByDeparture($departure);
-        } elseif ($arrival) {
-            $annonces = $annonceRepository->findByArrival($arrival);
-        } elseif ($date) {
-            $annonces = $annonceRepository->findByHour($date);
-        } else {
-            $annonces = $annonceRepository->findAllNotOld();
+        if ($security->isGranted('ROLE_ADMIN')){
+            $annonces = $annonceRepository->findAll();
+        }else{
+            if ($departure && $arrival && $date) {
+                $annonces = $annonceRepository->findByDepartureArrivalAndHour($departure, $arrival, $date);
+            } elseif ($departure && $date){
+                $annonces = $annonceRepository->findByDepartureAndHour($departure, $date);
+            } elseif ($arrival && $date){
+                $annonces = $annonceRepository->findByArrivalAndHour($arrival, $date);
+            } elseif ($departure && $arrival) {
+                $annonces = $annonceRepository->findByDepartureAndArrival($departure, $arrival);
+            } elseif ($departure) {
+                $annonces = $annonceRepository->findByDeparture($departure);
+            } elseif ($arrival) {
+                $annonces = $annonceRepository->findByArrival($arrival);
+            } elseif ($date) {
+                $annonces = $annonceRepository->findByHour($date);
+            } else {
+                $annonces = $annonceRepository->findAllNotOld();
+            }
         }
 
         return $this->render('annonce/annonces.html.twig', [
@@ -101,6 +103,10 @@ class AnnonceController extends AbstractController
             return $this->redirectToRoute('login');
         }
         $annonce = $annonceRepository->findOneBy(['id'=> $id]);
+        if (!$annonce){
+            $this->addflash('error', 'L\'annonce que vous essayez de consulter n\'existe pas' );
+            return $this->redirectToRoute('annonces');
+        }
         $commentaires = $commentaireRepository->findby(['annonce'=> $id]);
         $user = $this->getUser();
         $reservations = $reservationRepository->findBy(['annonce' => $annonce]);
@@ -130,13 +136,9 @@ class AnnonceController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $annonce = $annonceRepository->findOneBy(['id' => $id]);
 
-        if ($user->getId() === $annonce->getConducteur()->getId() and $annonce->getDate()->getTimestamp()>time()) {
+        if ($user->getId() === $annonce->getConducteur()->getId() and $annonce->getDate()->getTimestamp()<time()) {
             // Supprimer l'annonce
-            $reservations = $reservationRepository->findBy(['annonce' => $id]);
-            foreach ($reservations as $reservation){
-                $entityManager->remove($reservation);
-                $entityManager->flush();
-            }
+
 
             $entityManager->remove($annonce);
             $entityManager->flush();

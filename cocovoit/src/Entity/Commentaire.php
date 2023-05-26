@@ -24,6 +24,7 @@ class Commentaire
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Annonce", inversedBy="commentaires")
+     * @ORM\JoinColumn(name="annonce_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $annonce;
 

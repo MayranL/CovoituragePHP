@@ -25,7 +25,7 @@ class Reservation
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Annonce", inversedBy="reservations")
-     *
+     * @ORM\JoinColumn(name="annonce_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $annonce;
 

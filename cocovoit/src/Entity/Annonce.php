@@ -55,7 +55,7 @@ class Annonce
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="annonce")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="annonce", orphanRemoval=true)
      */
     private $reservations;
 
