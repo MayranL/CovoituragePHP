@@ -36,7 +36,6 @@ class Note
      */
     private $annonce;
 
-    // Ajoutez ici les getters et les setters...
 
     public function getId(): ?int
     {

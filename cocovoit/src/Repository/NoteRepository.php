@@ -28,6 +28,19 @@ class NoteRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllByAuteur($passengerId,$annonce,$conducteurId): array
+    {
+        return $this->createQueryBuilder('n')
+            ->andWhere('n.auteur = :auteur')
+            ->andWhere('n.annonce = :annonce')
+            ->andWhere('n.conducteur = :conducteurId')
+            ->setParameter('conducteurId', $conducteurId)
+            ->setParameter('auteur', $passengerId)
+            ->setParameter('annonce', $annonce)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // Ajoutez ici vos méthodes personnalisées pour le repository de Note
 }

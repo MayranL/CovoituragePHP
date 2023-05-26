@@ -52,7 +52,7 @@ class AnnonceController extends AbstractController
                 $annonces = $annonceRepository->findAllNotOld();
             }
         }
-
+        $numberofresa = 0;
         if($this->getUser()){
             $user = $this->getUser();
             $numberofresa = 0;
@@ -66,6 +66,7 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/annonces.html.twig', [
             'annonces' => $annonces,
             'nombredereservation'=>$numberofresa,
+            'admin' => $security->isGranted('ROLE_ADMIN'),
         ]);
     }
 
@@ -160,12 +161,11 @@ class AnnonceController extends AbstractController
             $this->addflash('error', 'Vous devez être connecté pour effectuer une réservation.');
             return $this->redirectToRoute('login');
         }
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $entityManager = $this->getDoctrine()->getManager();
         $annonce = $annonceRepository->findOneBy(['id' => $id]);
 
-        if ($user->getId() === $annonce->getConducteur()->getId() and $annonce->getDate()->getTimestamp()<time()) {
+        if (($user->getId() === $annonce->getConducteur()->getId() and $annonce->getDate()->getTimestamp()<time()) or $security->isGranted('ROLE_ADMIN')) {
             // Supprimer l'annonce
 
 
@@ -261,34 +261,42 @@ class AnnonceController extends AbstractController
             $this->addFlash('error', 'Vous avez déjà noté cette annonce.');
             return $this->redirectToRoute('annonces');
         }
-
-        // Création d'une nouvelle note
-        $note = new Note();
-        $note->setAuteur($user);
-        $note->setConducteur($annonce->getConducteur());
-        $note->setNote($request->request->get('note'));
         $conducteur = $annonce->getConducteur();
-        $notes = $noteRepository->findAllByConducteurId($conducteur->getId());
+        $notes = $noteRepository->findAllByAuteur($this->getUser(),$annonce,$conducteur->getId());
+        dump(count($notes));
+        // Création d'une nouvelle note
+        if (count($notes)===0){
+            $notes = $noteRepository->findAllByConducteurId($conducteur->getId());
+            $note = new Note();
+            $note->setAuteur($user);
+            $note->setConducteur($annonce->getConducteur());
+            $note->setAnnonce($annonce);
+            $note->setNote($request->request->get('note'));
 
-        $totalNotes = 0;
-        $nbNotes = count($notes);
+            $totalNotes = 0;
+            $nbNotes = count($notes)+1;
 
-        foreach ($notes as $note) {
-            $totalNotes += $note->getNote();
+            foreach ($notes as $note) {
+                $totalNotes += $note->getNote();
+            }
+
+            $averageNote = $nbNotes > 0 ? $totalNotes / $nbNotes : 0;
+            $notef = ($conducteur->GetNote()+$averageNote)/2;
+            $conducteur->setNote($notef);
+
+            dump('coucou');
+            // Sauvegarde de la note en base de données
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($note);
+            $entityManager->persist($conducteur);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Note ajoutée avec succès.');
+        }else{
+            $this->addFlash('danger', 'Annonce déjà notée.');
+            return $this->redirectToRoute('annonces');
         }
 
-        $averageNote = $nbNotes > 0 ? $totalNotes / $nbNotes : 0;
-        $conducteur->setNote($averageNote);
-
-
-        // Sauvegarde de la note en base de données
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($note);
-        $entityManager->flush();
-        $entityManager->persist($conducteur);
-        $entityManager->flush();
-
-        $this->addFlash('success', 'Note ajoutée avec succès.');
 
         return $this->redirectToRoute('annonces');
     }
