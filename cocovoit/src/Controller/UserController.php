@@ -96,4 +96,14 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/language/{locale}", name="set_language")
+     */
+    public function changeLocale($locale, Request $request)
+    {
+        $request->getSession()->set('_locale', $locale);
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 }
