@@ -11,19 +11,19 @@
             <li class="inline-flex items-center">
                 <a href="{{ path('dashboard') }}" class="inline-flex items-center text-sm font-medium hover:text-gray-70">
                     <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                    Accueil
+                    {{ 'header.main'|trans }}
                 </a>
             </li>
             <li>
                 <div class="flex items-center">
                     <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <a href="{{ path('annonces') }}" class="ml-1 text-sm font-medium hover:text-gray-700  md:ml-2 ">Trajets</a>
+                    <a href="{{ path('annonces') }}" class="ml-1 text-sm font-medium hover:text-gray-700  md:ml-2 ">{{ 'route.all.all'|trans }}</a>
                 </div>
             </li>
             <li>
                 <div class="flex items-center">
                     <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <a href="{{ path('afficher_annonce',  {'id': annonce.id}) }}" class="ml-1 text-sm font-medium hover:text-gray-700  md:ml-2 ">Trajet : {{ annonce.villeDepart }} - {{ annonce.villeArrive }}</a>
+                    <a href="{{ path('afficher_annonce',  {'id': annonce.id}) }}" class="ml-1 text-sm font-medium hover:text-gray-700  md:ml-2 ">{{ 'route.show.show'|trans }} : {{ annonce.villeDepart }} - {{ annonce.villeArrive }}</a>
                 </div>
             </li>
         </ol>
@@ -31,17 +31,17 @@
     <div class="max-w-lg mx-auto">
         <div class="bg-white shadow p-4 rounded-lg mb-4 dark:text-white dark:bg-gray-800">
             <h2 class="text-2xl font-bold mb-2">{{ annonce.villeDepart }} - {{ annonce.villeArrive }}</h2>
-            <p class="dark:text-white dark:bg-gray-800 mb-4">Conducteur : {{ annonce.conducteur.nom }} {{ annonce.conducteur.prenom }}</p>
-            <p class="dark:text-white dark:bg-gray-800 mb-4">Prix : {{ annonce.prix }} €</p>
-            <p class="dark:text-white dark:bg-gray-800 mb-4">Modèle de voiture : {{ annonce.modeleV }}</p>
-            <p class="dark:text-white dark:bg-gray-800 mb-4">Nombre de places disponibles : {{ annonce.nbplace|number_format(0, '.', '') }}</p>
-            <p class="dark:text-white dark:bg-gray-800 mb-4">Date : {{ date|date('d/m/Y à H:i') }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">{{ 'route.show.conductor'|trans }} : {{ annonce.conducteur.nom }} {{ annonce.conducteur.prenom }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">{{ 'route.show.price'|trans }} : {{ annonce.prix }} €</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">{{ 'route.show.car'|trans }} : {{ annonce.modeleV }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">{{ 'route.show.people'|trans }} : {{ annonce.nbplace|number_format(0, '.', '') }}</p>
+            <p class="dark:text-white dark:bg-gray-800 mb-4">{{ 'route.show.date'|trans }} : {{ date|date('d/m/Y à H:i') }}</p>
             {% if not old %}
             <div class="mt-4 text-right">
                 <!-- Formulaire de réservation -->
                 <form action="{{ path('faire_reservation', {'id': annonce.id}) }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token('reservation') }}">
-                    <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Faire une réservation</button>
+                    <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ 'route.show.reserve_it'|trans }}</button>
                 </form>
             </div>
             {% endif %}
@@ -50,18 +50,18 @@
         {% if old %}
             <form class="dark:text-white dark:bg-gray-900 flex" action="{{ path('noter_annonce', { 'id': annonce.id }) }}" method="POST">
                 <div class="form-group dark:text-white dark:bg-gray-900">
-                    <label class="dark:text-white dark:bg-gray-900" for="note">Note:</label>
+                    <label class="dark:text-white dark:bg-gray-900" for="note">{{ 'route.show.mark'|trans }} :</label>
                     <input class="w-1/4 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white dark:bg-gray-700" type="number" id="note" name="note" min="1" max="5" required>
                 </div>
-                <button type="submit" class="ml-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Noter</button>
+                <button type="submit" class="ml-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ 'route.show.rate'|trans }}</button>
             </form>
         <div class="bg-white shadow p-4 rounded-lg dark:text-white dark:bg-gray-900">
-            <h3 class="text-xl font-bold mb-4">Commentaires</h3>
+            <h3 class="text-xl font-bold mb-4">{{ 'route.show.comment'|trans }}</h3>
             <!-- Zone de commentaire -->
             <form class="dark:text-white dark:bg-gray-900" action="{{ path('faire_commentaire',  {'id': annonce.id}) }}" method="POST">
                 <textarea name="commentaire[contenu]" class="w-full border-gray-300 dark:text-white dark:bg-gray-800 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
                 <input type="hidden" id="commentaire__token" name="commentaire[_token]" value="{{ csrf_token('commentaire') }}">
-                <button type="submit" class="mt-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Ajouter un commentaire</button>
+                <button type="submit" class="mt-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ 'route.show.comment_it'|trans }}</button>
             </form>
 
             <!-- Liste des commentaires -->
@@ -76,7 +76,7 @@
                         </a>
                         {% endif %}
                         <p class="dark:text-white dark:bg-gray-800">{{ commentaire.contenu }}</p>
-                        <p class="dark:text-white dark:bg-gray-800 text-sm">Par {{ commentaire.auteur.nom }} {{ commentaire.auteur.prenom }}</p>
+                        <p class="dark:text-white dark:bg-gray-800 text-sm">{{ 'route.show.comment_by'|trans }} {{ commentaire.auteur.nom }} {{ commentaire.auteur.prenom }}</p>
                     </div>
 
 
@@ -87,7 +87,7 @@
         </div>
         {% endif %}
         <div class="mt-8">
-            <h2 class="text-2xl font-bold">Réservations</h2>
+            <h2 class="text-2xl font-bold">{{ 'route.show.reserve'|trans }}</h2>
             {% if reservations is not empty %}
                 <ul class="mt-4 space-y-2">
                     {% for reservation in reservations %}
@@ -99,9 +99,9 @@
                                 <div class="ml-4">
                                     <div class="text-lg font-bold">{{ reservation.passager.username }}</div>
                                     {% if reservation.getOld() %}
-                                        <div class="text-sm text-gray-500">La date de cette annonce est passée.</div>
+                                        <div class="text-sm text-gray-500">{{ 'route.show.old_reserve'|trans }}</div>
                                     {% else %}
-                                        <div class="text-sm text-gray-500">La date de cette annonce est à venir.</div>
+                                        <div class="text-sm text-gray-500">{{ 'route.show.new_reserve'|trans }}</div>
                                     {% endif %}
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                     {% endfor %}
                 </ul>
             {% else %}
-                <p class="mt-4 text-gray-500">Aucune réservation pour cette annonce.</p>
+                <p class="mt-4 text-gray-500">{{ 'route.show.no_reserve'|trans }}</p>
             {% endif %}
         </div>
 

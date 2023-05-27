@@ -19,7 +19,7 @@
         {% endblock %}
     </head>
     {% for flashMessage in app.session.flashbag.get('success') %}
-        <div id="toast-success" class="absolute flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+        <div id="toast-success" class="z-50 absolute flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
             <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                 <span class="sr-only">Check icon</span>
@@ -33,7 +33,7 @@
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('error') %}
-        <div id="toast-danger" class="absolute flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+        <div id="toast-danger" class="z-50 absolute flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
             <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 <span class="sr-only">Error icon</span>
@@ -49,13 +49,13 @@
     <header>
         <nav class="px-4 lg:px-6 py-2.5 dark:text-white dark:bg-gray-900">
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
-                <a href="https://flowbite.com" class="flex items-center">
+                <a href="{{ path('dashboard') }}" class="flex items-center">
                     <img class="w-20 h-8 mr-2" src="{{ asset('images/log.png') }}" alt="logo">
                 </a>
                 <div class="flex items-center lg:order-2">
                     {% if not app.user %}
-                    <a href="{{ path('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Se connecter</a>
-                    <a href="{{ path('app_register') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">S'inscrire</a>
+                    <a href="{{ path('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">{{ 'header.login'|trans }}</a>
+                    <a href="{{ path('app_register') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ 'header.register'|trans }}</a>
                     {% else %}
                     {% if nombredereservation %}
                     <a class="liennotif" href="{{ path('reservations') }}">
@@ -67,24 +67,48 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" />
                         </svg>
                     </a>
-                    <a href="{{ path('profil') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Profil</a>
+                    <a href="{{ path('profil') }}" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ 'header.profil'|trans }}</a>
                     <a href="{{ path('deconnexion') }}" class="ml-2 text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                         </svg>
                     </a>
                     {% endif %}
+                    <!-- language_selector.html.twig -->
+                    <a class="flex justify-ends" href="{{ path('set_language', {'locale': 'fr'}) }}">
+                        <svg class="absolute h-10 w-10" xmlns="http://www.w3.org/2000/svg" style="left: 20px; top: 10px" viewBox="0 0 1800 1200" width="30" height="20">
+                            <rect width="1800" height="1200" fill="#0055A4"/>
+                            <rect width="1200" height="1200" fill="#FFFFFF"/>
+                            <rect width="600" height="1200" fill="#EF4135"/>
+                        </svg>
+                    </a>
+                    <a href="{{ path('set_language', {'locale': 'en'}) }}">
+                        <svg class="absolute h-10 w-10" xmlns="http://www.w3.org/2000/svg" id="layer1" style="left: 70px; top: 10px" viewBox="0 0 50 30">
+                            <path id="rect5260" style="display:inline;fill:#012169;stroke:none" d="M 0,0 H 50 V 30.000002 H 0 Z" />
+                            <path id="path15342" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1" d="M 4.9977237,-2.9981886 0,0 1.8008272,3.0018248 53.312402,3.001923 58.309682,0.00400026 56.508589,-2.9982677 Z" transform="rotate(30.96)" />
+                            <path id="path15319" style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1" d="m 41.075547,28.723827 1.800828,-3.001825 -4.997724,-2.998189 -51.510865,-7.9e-5 -1.801093,3.002268 4.99728,2.997923 z" transform="rotate(-30.96)" />
+                            <path id="rect10396" style="display:inline;fill:#ffffff;stroke-width:0.999997;stroke:none" d="M 20,0 H 30 V 30.000002 H 20 Z" />
+                            <path id="rect11230" style="display:inline;fill:#ffffff;stroke:none" d="M 1.6689301e-6,10.000001 H 50.000002 v 10 H 1.6689301e-6 Z" />
+                            <path id="rect10396-3" style="display:inline;fill:#c8102e;stroke-width:0.999996;stroke:none" d="m 22,0 h 6 v 30.000002 h -6 z" />
+                            <path id="rect11230-6" style="display:inline;fill:#c8102e;stroke:none" d="M 1.6689301e-6,12.000001 H 50.000002 v 6 H 1.6689301e-6 Z" />
+                            <path id="path15792" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 50.000049,30.000236 V 27.667562 L 37.217883,19.999813 h -3.887618 z" />
+                            <path id="path15766" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 0,0 1.199754,1.9998871 16.104952,1.9998009 19.438245,1.2232966e-4 Z" transform="rotate(30.96)" />
+                            <path id="path15786" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 30.000236 9.9999064 L 33.334916 9.9999064 L 50.000049 0 L 46.116565 0 L 30.000236 9.6686605 L 30.000236 9.9999064 z " />
+                            <path id="path15788" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 19.999813 19.999813 L 16.666166 19.999813 L 0.0041341146 29.995068 L 0.0041341146 30.000236 L 3.8840007 30.000236 L 19.999813 20.332092 L 19.999813 19.999813 z " />
+                        </svg>
+                    </a>
+
                 </div>
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="{{ path('dashboard') }}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white" aria-current="page">Accueil</a>
+                            <a href="{{ path('dashboard') }}" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white" aria-current="page">{{ 'header.main'|trans }}</a>
                         </li>
                         <li>
-                            <a href="{{ path('annonces') }}" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Trajets</a>
+                            <a href="{{ path('annonces') }}" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">{{ 'header.route'|trans }}</a>
                         </li>
                         <li>
-                            <a href="{{ path('creer_annonce') }}" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Publier un trajet</a>
+                            <a href="{{ path('creer_annonce') }}" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">{{ 'header.publish_route'|trans }}</a>
                         </li>
                     </ul>
                 </div>
@@ -112,19 +136,6 @@
             <div class="flex flex-wrap justify-between items-center">
                 <div class="w-full md:w-1/2">
                     <p>&copy; 2023 CoCoVoit. Tous droits réservés.</p>
-                </div>
-                <div class="w-full md:w-1/2 mt-4 md:mt-0">
-                    <ul class="flex justify-end">
-                        <li class="mr-4">
-                            <a href="#" class="text-gray-400 hover:text-white">Accueil</a>
-                        </li>
-                        <li class="mr-4">
-                            <a href="#" class="text-gray-400 hover:text-white">À propos</a>
-                        </li>
-                        <li class="mr-4">
-                            <a href="#" class="text-gray-400 hover:text-white">Contact</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>

@@ -1,0 +1,116 @@
+en: English
+fr: French
+header:
+  main: Home
+  route: Routes
+  publish_route: Publish a Route
+  login: Log in
+  register: Register
+  profil: Profile
+main:
+  spark: Transform your journeys into unforgettable moments of pleasure and discovery!
+  underspark: CoCoVoit opens the doors to a passionate community of travelers, ready to become your new road friends for unforgettable adventures!
+profil:
+  config: Configuration
+  recent: Recent Announcements
+  route_share: Route offered by
+  departure: Departure
+  arrival: Arrival
+  date: Date
+  people: Available Seats
+  price: Price
+  route_did: Routes Taken
+  update_user: Update Stark's Data
+  no_announce: No announcements posted at the moment...
+  no_route: No routes taken yet. What are you waiting for?
+register:
+  title: Create a User Account
+  register: Register
+  already_registered: Already have an account?
+  to_login: Log in here
+login:
+  title: Log in to your User Account
+  login: Log in
+  not_register: Not registered yet?
+  to_register: Register here
+route:
+  edit:
+    edit: Update Route
+
+  new:
+    new: Add a Route
+
+  show:
+    show: Route
+    conductor: Conductor
+    price: Price
+    car: Car Model
+    people: Number of Available Seats
+    date: Date
+    reserve_it: Make a Reservation
+    rate: Rate
+    mark: Mark
+    comment_it: Add a Comment
+    comment_by: By
+    comment: Comments
+    reserve: Reservations
+    old_reserve: The date of this announcement has passed.
+    new_reserve: The date of this announcement is upcoming.
+    no_reserve: No reservations for this announcement.
+
+  all:
+    all: Routes
+    search_departure: Departure Location
+    search_arrival: Arrival Location
+    search: Search
+    route_share: Route offered by
+    departure: Departure
+    arrival: Arrival
+    date: Date
+    people: Available Seats
+    price: Price
+
+reserve:
+  reserve: My Reservations
+  route_share: Route offered by
+  departure: Departure
+  arrival: Arrival
+  date: Date
+  people: Available Seats
+  price: Price
+  no_reserve: No reservations at the moment...
+
+form:
+  announce:
+    departure: Departure City
+    arrival: Arrival City
+    date: Date and Time of the Journey
+    people: Number of Seats
+    price: Price of the Journey
+    car: Vehicle Model
+    submit: Submit the Route
+  comment:
+    content: Your Content
+    submit: Post Comment
+  login:
+    email: Email Address
+    password: Password
+    connect: Connect
+  register:
+    name: Name
+    surname: Surname
+    email: Email Address
+    password: Password
+    rpassword: Repeat Password
+    submit: Register
+    invalid_message: The password fields must match.
+    message: Please enter a password.
+  update_user:
+    name: New Name
+    surname: New Surname
+    email: New Email Address
+    password: New Password
+    rpassword: Repeat New Password
+    submit: Update
+    invalid_message: The password fields must match.
+    message: Please enter a password.

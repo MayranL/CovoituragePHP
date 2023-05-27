@@ -1,0 +1,119 @@
+en: Anglais
+fr: Français
+header:
+  main: Accueil
+  route: Trajets
+  publish_route: Publier un trajet
+  login: Se connecter
+  register: S'inscrire
+  profil: profil
+main:
+  spark: Transforme vos trajets en véritables moments de plaisir et de découverte !
+  underspark : CoCoVoit vous ouvre les portes d'une communauté passionnée de voyageurs, prêts à devenir vos nouveaux amis de route pour des aventures inoubliables !
+profil:
+  config: Configuration
+  recent: Annonces récente postées
+  route_share: Trajet proposé par
+  departure: Départ
+  arrival: Arrivée
+  date: Date
+  people: Place disponible
+  price: Prix
+  route_did: Trajets effectuées
+  update_user: Mettre à jour les données de Stark
+  no_announce: Aucune annonce de postée pour le moment...
+  no_route: Aucun trajet effectué pour le moment. Qu'attendez vous ?
+register:
+  title: Créer un compte utilisateur
+  register: Inscription
+  already_registered: Déjà un compte ?
+  to_login: Connectez vous ici
+login:
+  title: Connectez vous à votre compte utilisateur
+  login: Connexion
+  not_register: Pas encore inscrit ?
+  to_register: Inscrivez vous ici
+route:
+  edit:
+    edit: Mise à jour du trajet
+
+  new:
+    new: Ajouter un trajet
+
+  show:
+    show: Trajet
+    conductor: Conducteur
+    price: Prix
+    car: Modèle de voiture
+    people: Nombre de places disponibles
+    date: Date
+    reserve_it: Faire une réservation
+    rate: Noter
+    mark: Note
+    comment_it: Ajouter un commentaire
+    comment_by: Par
+    comment: Commentaires
+    reserve: Réservations
+    old_reserve: La date de cette annonce est passée.
+    new_reserve: La date de cette annonce est à venir.
+    no_reserve: Aucune réservation pour cette annonces.
+
+  all:
+    all: Trajets
+    search_departure: Lieu de départ
+    search_arrival: Lieu d'arrivé
+    search: Rechercher
+    route_share: Trajet proposé par
+    departure: Départ
+    arrival: Arrivée
+    date: Date
+    people: Place disponible
+    price: Prix
+
+
+reserve:
+  reserve: Mes reservations
+  route_share: Trajet proposé par
+  departure: Départ
+  arrival: Arrivée
+  date: Date
+  people: Place disponible
+  price: Prix
+  no_reserve: Aucune réservation pour le moment...
+
+form:
+  announce:
+    departure: Ville de départ
+    arrival: Ville d'arrivée
+    date: Date et heure du trajet
+    people: Nombre de place
+    price: Prix du trajet
+    car: Modèle du véhicule
+    submit : Proposer le trajet
+  comment:
+    content: Votre contenu
+    submit: Poster le commentaire
+  login:
+    email: Adresse email
+    password: Mot de passe
+    connect: Connexion
+  register:
+    name: Nom
+    surname: Prénom
+    email: Adresse email
+    password: Mot de passe
+    rpassword: Répéter le mot de passe
+    submit: S'inscrire
+    invalid_message : Les champs de mot de passe doivent correspondre.
+    message : Veuillez rentrer un mot de passe
+  update_user:
+    name: Nouveau nom
+    surname: Nouveau prénom
+    email: Nouvelle adresse email
+    password: Nouveau mot de passe
+    rpassword: Répéter le nouveau mot de passe
+    submit: Mettre à jour
+    invalid_message: Les champs de mot de passe doivent correspondre.
+    message: Veuillez rentrer un mot de passe
+
+
