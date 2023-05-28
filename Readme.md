@@ -7,7 +7,7 @@ Ceci est le README pour l'application Cocovoit.
 Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
 
 - PHP (version 7.4 ou supérieure)
-- Composer
+- Composer (https://getcomposer.org/download/)
 - MySQL (version 8.0.31 ou supérieure)
 
 De notre côté, nous utilisons WAMP 3.0.0 qui propose ces versions.
