@@ -1,6 +1,6 @@
-# Mon Application
+# Cocovoit
 
-Ceci est le README pour l'application Mon Application.
+Ceci est le README pour l'application Cocovoit.
 
 ## Configuration requise
 
