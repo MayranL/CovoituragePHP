@@ -8,7 +8,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 - PHP (version 7.4 ou supérieure)
 - Composer
-- MySQL (ou un autre système de gestion de base de données)
+- MySQL (version 8.0.31 ou supérieure)
 
 ## Installation
 
