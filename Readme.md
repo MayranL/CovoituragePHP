@@ -10,6 +10,8 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - Composer
 - MySQL (version 8.0.31 ou supérieure)
 
+De notre côté, nous utilisons WAMP 3.0.0 qui propose ces versions.
+
 ## Installation
 
 Suivez les étapes ci-dessous pour installer et configurer l'application :
