@@ -15,21 +15,34 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 Suivez les étapes ci-dessous pour installer et configurer l'application :
 
 1. Clonez ce référentiel sur votre machine locale :
+<pre>
 git clone https://github.com/MayranL/CovoituragePHP.git
+</pre>
 2. Accédez au répertoire du projet :
+<pre>
 cd cocovoit
+</pre>
 3. Installez les dépendances à l'aide de Composer :
+<pre>
 composer install
+</pre>
 4. Modifier le fichier `.env` à la racine du projet en vous assurant de configurer les variables d'environnement appropriées, telles que la connexion à la base de données : <pre>DATABASE_URL="mysql://root:@127.0.0.1:3306/cocovoit?serverVersion=8&charset=utf8mb4"</pre>
 5. Créez la base de données en utilisant la commande suivante :
+<pre>
 php bin/console doctrine:database:create
+</pre>
 6. Appliquez les migrations pour créer les tables de base de données :
+<pre>
 php bin/console doctrine:migrations:migrate
+</pre>
 7. (Facultatif) Chargez les données de démonstration si nécessaire :
+<pre>
 php bin/console doctrine:fixtures:load
+</pre>
 8. Démarrez le serveur de développement :
+<pre>
 php -S localhost:8000 -t public
-
+</pre>
 L'application devrait maintenant être accessible à l'adresse `http://localhost:8000`.
 
 ## Utilisation
