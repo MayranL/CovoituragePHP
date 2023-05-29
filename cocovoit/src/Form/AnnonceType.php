@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\Translator;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AnnonceType extends AbstractType
@@ -44,7 +45,9 @@ class AnnonceType extends AbstractType
                 'label' => $this->translator->trans('form.announce.date'),
                 'widget' => 'single_text',
                 'attr' => ['class' => 'w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:text-white dark:bg-gray-700'],
-                // D'autres options de configuration si nécessaire
+                'constraints' => [
+                    new GreaterThan('now'), // Vérifie si la date est postérieure à la date actuelle
+                ],
             ])
             ->add('modeleV', TextType::class, [
                 'label' => $this->translator->trans('form.announce.car'),

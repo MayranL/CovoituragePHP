@@ -40,7 +40,6 @@ class ReservationController extends AbstractController
 
         // Vérifier s'il y a au moins une place disponible dans l'annonce
         if ($annonce->getNbplace() > 0) {
-            dump($annonce->getNbplace());
             $reservation = new Reservation();
             $reservation->setPassager($user);
             $reservation->setAnnonce($annonce);

@@ -20,7 +20,7 @@ profil:
   people: Available Seats
   price: Price
   route_did: Routes Taken
-  update_user: Update Stark's Data
+  update_user: Update Data of
   no_announce: No announcements posted at the moment...
   no_route: No routes taken yet. What are you waiting for?
 register:

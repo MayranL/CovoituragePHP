@@ -6,7 +6,7 @@ header:
   publish_route: Publier un trajet
   login: Se connecter
   register: S'inscrire
-  profil: profil
+  profil: Profil
 main:
   spark: Transforme vos trajets en véritables moments de plaisir et de découverte !
   underspark : CoCoVoit vous ouvre les portes d'une communauté passionnée de voyageurs, prêts à devenir vos nouveaux amis de route pour des aventures inoubliables !
@@ -20,7 +20,7 @@ profil:
   people: Place disponible
   price: Prix
   route_did: Trajets effectuées
-  update_user: Mettre à jour les données de Stark
+  update_user: Mettre à jour les données de
   no_announce: Aucune annonce de postée pour le moment...
   no_route: Aucun trajet effectué pour le moment. Qu'attendez vous ?
 register:

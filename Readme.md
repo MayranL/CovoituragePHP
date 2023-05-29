@@ -56,6 +56,16 @@ Voici quelques points importants à connaître pour utiliser l'application :
 - Explorez les différentes fonctionnalités de l'application.
 - Pour arrêter le serveur de développement faites CTRL+C
 
+Vous avez un utilisateur admin : 
+- Adresse email de l'admin : <pre>admin@admin.fr</pre>
+- Mot de passe de l'admin : <pre>toto</pre>
+
+Vous avez un utilisateur :
+- Adresse email de l'admin : <pre>utilisateur@utilisateur.fr</pre>
+- Mot de passe de l'admin : <pre>toto</pre>
+  
+
+
 
 
 

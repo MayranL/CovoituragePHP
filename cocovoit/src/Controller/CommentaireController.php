@@ -20,7 +20,7 @@ class CommentaireController extends AbstractController
     /**
      * @Route("/commentaire/{id}/delete", name="supprimer_commentaire")
      */
-    public function supprimerCommentaire($id, CommentaireRepository $commentaireRepository): Response
+    public function supprimerCommentaire($id, CommentaireRepository $commentaireRepository, Security $security): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
@@ -28,7 +28,7 @@ class CommentaireController extends AbstractController
 
         $commentaire = $commentaireRepository->findOneBy(['id' => $id]);
 
-        if ($user->getId() === $commentaire->getAuteur()->getId()) {
+        if ($user->getId() === $commentaire->getAuteur()->getId() or $security->isGranted('ROLE_ADMIN')) {
             // Supprimer le commentaire de la base de données
             $entityManager->remove($commentaire);
             $entityManager->flush();

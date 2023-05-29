@@ -27,6 +27,17 @@ class AppFixtures extends Fixture
         $admin->setNote(5);
         $manager->persist($admin);
         $manager->flush();
+        $utilisateur = new User();
+        $utilisateur->setEmail('utilisateur@utilisateur.fr');
+        $utilisateur->setNom('utilisateur');
+        $utilisateur->setPrenom('utilisateur');
+        $utilisateur->setRoles(['ROLE_USER']);
+        $utilisateur->setPassword('toto');
+        $utilisateur->hashPassword();
+        $utilisateur->setCreatedAt($faker->dateTimeThisYear);
+        $utilisateur->setNote(5);
+        $manager->persist($utilisateur);
+        $manager->flush();
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
             $user->setEmail($faker->email);
@@ -42,7 +53,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
         for ($j = 0; $j < 50; $j++) {
-            for ($k = 0; $k < 5; $k++){
+            for ($k = 0; $k < 8; $k++){
                 $annonce = new Annonce();
                 $annonce->setConducteur($this->getReference('user-'.$j));
                 $annonce->setVilleDepart($faker->randomElement([

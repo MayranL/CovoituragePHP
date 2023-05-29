@@ -31,9 +31,6 @@ class AnnonceController extends AbstractController
         $arrival = $request->query->get('arrival');
         $date = $request->query->get('date');
         $annonces = [];
-        if ($security->isGranted('ROLE_ADMIN')){
-            $annonces = $annonceRepository->findAll();
-        }else{
             if ($departure && $arrival && $date) {
                 $annonces = $annonceRepository->findByDepartureArrivalAndHour($departure, $arrival, $date);
             } elseif ($departure && $date){
@@ -49,9 +46,13 @@ class AnnonceController extends AbstractController
             } elseif ($date) {
                 $annonces = $annonceRepository->findByHour($date);
             } else {
-                $annonces = $annonceRepository->findAllNotOld();
+                if ($security->isGranted('ROLE_ADMIN')){
+                    $annonces = $annonceRepository->findAll();
+                }else{
+                    $annonces = $annonceRepository->findAllNotOld();
+                }
             }
-        }
+
         $numberofresa = 0;
         if($this->getUser()){
             $user = $this->getUser();
@@ -130,6 +131,7 @@ class AnnonceController extends AbstractController
             $this->addflash('error', 'L\'annonce que vous essayez de consulter n\'existe pas' );
             return $this->redirectToRoute('annonces');
         }
+        // récuperer les com + resa
         $commentaires = $commentaireRepository->findby(['annonce'=> $id]);
         $user = $this->getUser();
         $reservations = $reservationRepository->findBy(['annonce' => $annonce]);
@@ -167,8 +169,6 @@ class AnnonceController extends AbstractController
 
         if (($user->getId() === $annonce->getConducteur()->getId() and $annonce->getDate()->getTimestamp()<time()) or $security->isGranted('ROLE_ADMIN')) {
             // Supprimer l'annonce
-
-
             $entityManager->remove($annonce);
             $entityManager->flush();
 
@@ -284,8 +284,6 @@ class AnnonceController extends AbstractController
             $notef = ($conducteur->GetNote()+$averageNote)/2;
             $conducteur->setNote($notef);
 
-            dump('coucou');
-            // Sauvegarde de la note en base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($note);
             $entityManager->persist($conducteur);
