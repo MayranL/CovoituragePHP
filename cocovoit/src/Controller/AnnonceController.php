@@ -13,6 +13,7 @@ use App\Repository\CommentaireRepository;
 use App\Repository\NoteRepository;
 use App\Repository\ReservationRepository;
 use Faker\Core\DateTime;
+use PhpParser\Node\Expr\New_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -297,6 +298,57 @@ class AnnonceController extends AbstractController
 
 
         return $this->redirectToRoute('annonces');
+    }
+
+    /**
+     * @Route("/annonce/{id}/duplicate", name="dupliquer_annonce")
+     */
+    public function dubliquerAnnonce(Request $request, Security $security, $id, AnnonceRepository $annonceRepository): Response
+    {
+        if (!$this->getUser()) {
+            $this->addflash('error', 'Vous devez être connecté pour dupliquer cette reservation.');
+            return $this->redirectToRoute('login');
+        }
+
+        $user = $this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
+        $annonce = $annonceRepository->findOneBy(['id' => $id]);
+
+        $duplicateannonce = New Annonce();
+        $duplicateannonce->setConducteur($this->getUser());
+        $duplicateannonce->setDate($annonce->getDate());
+        $duplicateannonce->setPrix($annonce->getPrix());
+        $duplicateannonce->setVilleDepart($annonce->getVilleDepart());
+        $duplicateannonce->setVilleArrive($annonce->getVilleArrive());
+        $duplicateannonce->setNbplace($annonce->getNbplace());
+        $duplicateannonce->setModeleV($annonce->getModeleV());
+        $form = $this->createForm(AnnonceType::class, $duplicateannonce);
+
+        // Traitement du formulaire
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Fusionner l'entité modifiée avec celle récupérée depuis la base de données
+            $entityManager->persist($duplicateannonce);
+            $entityManager->flush();
+
+            // Rediriger vers la page d'affichage de l'annonce
+            return $this->redirectToRoute('afficher_annonce', ['id' => $duplicateannonce->getId()]);
+        }
+
+        $numberofresa = 0;
+        foreach ($user->getReservations() as $reservation){
+            if (!$reservation->getOld()){
+                $numberofresa += 1;
+            }
+        }
+
+        // Affichage du formulaire
+        return $this->render('annonce/dupliquer.html.twig', [
+            'id' => $id,
+            'form' => $form->createView(),
+            'nombredereservation'=>$numberofresa,
+        ]);
     }
 
 }

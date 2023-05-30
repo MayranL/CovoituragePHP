@@ -26,7 +26,7 @@ cd cocovoit
 </pre>
 3. Installez les dépendances à l'aide de Composer :
 <pre>
-composer install
+composer update
 </pre>
 4. Modifier le fichier `.env` à la racine du projet en vous assurant de configurer les variables d'environnement appropriées, telles que la connexion à la base de données : <pre>DATABASE_URL="mysql://root:@127.0.0.1:3306/cocovoit?serverVersion=8&charset=utf8mb4"</pre>
 5. Créez la base de données en utilisant la commande suivante :

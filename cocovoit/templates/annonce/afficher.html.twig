@@ -43,6 +43,9 @@
                     <input type="hidden" name="_token" value="{{ csrf_token('reservation') }}">
                     <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">{{ 'route.show.reserve_it'|trans }}</button>
                 </form>
+                <div class="mt-4">
+                <a class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"    href="{{ path('dupliquer_annonce', {'id': annonce.id}) }}">{{ 'duplicate'|trans }}</a>
+                </div>
             </div>
             {% endif %}
         </div>

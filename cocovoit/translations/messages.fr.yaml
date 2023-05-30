@@ -1,5 +1,6 @@
 en: Anglais
 fr: Français
+es: Espagnol
 header:
   main: Accueil
   route: Trajets
@@ -115,5 +116,6 @@ form:
     submit: Mettre à jour
     invalid_message: Les champs de mot de passe doivent correspondre.
     message: Veuillez rentrer un mot de passe
+duplicate: Proposer une annonce similaire
 
 

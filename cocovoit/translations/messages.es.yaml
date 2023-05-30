@@ -1,0 +1,113 @@
+en: Inglès
+fr: Frances
+es: Espanol
+header:
+  main: Inicio
+  route: Rutas
+  publish_route: Publicar una Ruta
+  login: Iniciar sesión
+  register: Registrarse
+  profil: Perfil
+main:
+  spark: ¡Transforma tus viajes en momentos inolvidables de placer y descubrimiento!
+  underspark: CoCoVoit abre las puertas a una comunidad apasionada de viajeros, listos para convertirse en tus nuevos amigos de carretera para aventuras inolvidables.
+profil:
+  config: Configuración
+  recent: Anuncios Recientes
+  route_share: Ruta ofrecida por
+  departure: Salida
+  arrival: Llegada
+  date: Fecha
+  people: Asientos Disponibles
+  price: Precio
+  route_did: Rutas Tomadas
+  update_user: Actualizar Datos de
+  no_announce: No hay anuncios publicados en este momento...
+  no_route: Aún no has tomado ninguna ruta. ¿Qué estás esperando?
+register:
+  title: Crear una Cuenta de Usuario
+  register: Registrarse
+  already_registered: ¿Ya tienes una cuenta?
+  to_login: Inicia sesión aquí
+login:
+  title: Iniciar sesión en tu Cuenta de Usuario
+  login: Iniciar sesión
+  not_register: ¿Aún no estás registrado?
+  to_register: Regístrate aquí
+route:
+  edit:
+    edit: Actualizar Ruta
+  new:
+    new: Agregar una Ruta
+  show:
+    show: Ruta
+    conductor: Conductor
+    price: Precio
+    car: Modelo de Coche
+    people: Número de Asientos Disponibles
+    date: Fecha
+    reserve_it: Hacer una Reserva
+    rate: Calificar
+    mark: Marcar
+    comment_it: Agregar un Comentario
+    comment_by: Por
+    comment: Comentarios
+    reserve: Reservas
+    old_reserve: La fecha de este anuncio ha pasado.
+    new_reserve: La fecha de este anuncio es próxima.
+    no_reserve: No hay reservas para este anuncio.
+  all:
+    all: Rutas
+    search_departure: Ciudad de Salida
+    search_arrival: Ciudad de Llegada
+    search: Buscar
+    route_share: Ruta ofrecida por
+    departure: Salida
+    arrival: Llegada
+    date: Fecha
+    people: Asientos Disponibles
+    price: Precio
+reserve:
+  reserve: Mis Reservas
+  route_share: Ruta ofrecida por
+  departure: Salida
+  arrival: Llegada
+  date: Fecha
+  people: Asientos Disponibles
+  price: Precio
+  no_reserve: No hay reservas en este momento...
+form:
+  announce:
+    departure: Ciudad de Salida
+    arrival: Ciudad de Llegada
+    date: Fecha y Hora del Viaje
+    people: Número de Asientos
+    price: Precio del Viaje
+    car: Modelo de Vehículo
+    submit: Enviar la Ruta
+  comment:
+    content: Tu Comentario
+    submit: Publicar Comentario
+  login:
+    email: Dirección de Correo Electrónico
+    password: Contraseña
+    connect: Conectar
+  register:
+    name: Nombre
+    surname: Apellido
+    email: Dirección de Correo Electrónico
+    password: Contraseña
+    rpassword: Repetir Contraseña
+    submit: Registrarse
+    invalid_message: Los campos de contraseña deben coincidir.
+    message: Por favor, ingresa una contraseña.
+  update_user:
+    name: Nuevo Nombre
+    surname: Nuevo Apellido
+    email: Nueva Dirección de Correo Electrónico
+    password: Nueva Contraseña
+    rpassword: Repetir Nueva Contraseña
+    submit: Actualizar
+    invalid_message: Los campos de contraseña deben coincidir.
+    message: Por favor, ingresa una contraseña.
+duplicate: Propone un anuncio similar
