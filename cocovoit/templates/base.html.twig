@@ -49,12 +49,37 @@
     <header>
         <nav class="px-4 lg:px-6 py-2.5 dark:text-white dark:bg-gray-900">
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
-                <a href="{{ path('set_language', {'locale': 'es'}) }}">
-                    <img style="height: 25px;width: 40px;" src="{{ asset('images/es.jpg') }}" alt="">
+                <div class="flex">
+                <a class="flex justify-ends" href="{{ path('set_language', {'locale': 'es'}) }}">
+                    <img class="h-10 w-10 mr-3" style="padding-top: 6px;padding-bottom: 6px" src="{{ asset('images/es.jpg') }}" alt="">
                 </a>
+                <a class="flex justify-ends" href="{{ path('set_language', {'locale': 'fr'}) }}">
+                    <svg class="h-10 w-10 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1200" width="30" height="20">
+                        <rect width="1800" height="1200" fill="#0055A4"/>
+                        <rect width="1200" height="1200" fill="#FFFFFF"/>
+                        <rect width="600" height="1200" fill="#EF4135"/>
+                    </svg>
+                </a>
+                <a href="{{ path('set_language', {'locale': 'en'}) }}">
+                    <svg  class="h-10 w-10 mr-3" xmlns="http://www.w3.org/2000/svg" id="layer1" style="" viewBox="0 0 50 30">
+                        <path id="rect5260" style="display:inline;fill:#012169;stroke:none" d="M 0,0 H 50 V 30.000002 H 0 Z" />
+                        <path id="path15342" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1" d="M 4.9977237,-2.9981886 0,0 1.8008272,3.0018248 53.312402,3.001923 58.309682,0.00400026 56.508589,-2.9982677 Z" transform="rotate(30.96)" />
+                        <path id="path15319" style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1" d="m 41.075547,28.723827 1.800828,-3.001825 -4.997724,-2.998189 -51.510865,-7.9e-5 -1.801093,3.002268 4.99728,2.997923 z" transform="rotate(-30.96)" />
+                        <path id="rect10396" style="display:inline;fill:#ffffff;stroke-width:0.999997;stroke:none" d="M 20,0 H 30 V 30.000002 H 20 Z" />
+                        <path id="rect11230" style="display:inline;fill:#ffffff;stroke:none" d="M 1.6689301e-6,10.000001 H 50.000002 v 10 H 1.6689301e-6 Z" />
+                        <path id="rect10396-3" style="display:inline;fill:#c8102e;stroke-width:0.999996;stroke:none" d="m 22,0 h 6 v 30.000002 h -6 z" />
+                        <path id="rect11230-6" style="display:inline;fill:#c8102e;stroke:none" d="M 1.6689301e-6,12.000001 H 50.000002 v 6 H 1.6689301e-6 Z" />
+                        <path id="path15792" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 50.000049,30.000236 V 27.667562 L 37.217883,19.999813 h -3.887618 z" />
+                        <path id="path15766" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 0,0 1.199754,1.9998871 16.104952,1.9998009 19.438245,1.2232966e-4 Z" transform="rotate(30.96)" />
+                        <path id="path15786" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 30.000236 9.9999064 L 33.334916 9.9999064 L 50.000049 0 L 46.116565 0 L 30.000236 9.6686605 L 30.000236 9.9999064 z " />
+                        <path id="path15788" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 19.999813 19.999813 L 16.666166 19.999813 L 0.0041341146 29.995068 L 0.0041341146 30.000236 L 3.8840007 30.000236 L 19.999813 20.332092 L 19.999813 19.999813 z " />
+                    </svg>
+                </a>
+
                 <a href="{{ path('dashboard') }}" class="flex items-center">
                     <img class="w-20 h-8 mr-2" src="{{ asset('images/log.png') }}" alt="logo">
                 </a>
+                </div>
                 <div class="flex items-center lg:order-2">
                     {% if not app.user %}
                     <a href="{{ path('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">{{ 'header.login'|trans }}</a>
@@ -77,30 +102,6 @@
                         </svg>
                     </a>
                     {% endif %}
-                    <!-- language_selector.html.twig -->
-                    <a class="flex justify-ends" href="{{ path('set_language', {'locale': 'fr'}) }}">
-                        <svg class="absolute h-10 w-10" xmlns="http://www.w3.org/2000/svg" style="left: 20px; top: 10px" viewBox="0 0 1800 1200" width="30" height="20">
-                            <rect width="1800" height="1200" fill="#0055A4"/>
-                            <rect width="1200" height="1200" fill="#FFFFFF"/>
-                            <rect width="600" height="1200" fill="#EF4135"/>
-                        </svg>
-                    </a>
-                    <a href="{{ path('set_language', {'locale': 'en'}) }}">
-                        <svg class="absolute h-10 w-10" xmlns="http://www.w3.org/2000/svg" id="layer1" style="left: 70px; top: 10px" viewBox="0 0 50 30">
-                            <path id="rect5260" style="display:inline;fill:#012169;stroke:none" d="M 0,0 H 50 V 30.000002 H 0 Z" />
-                            <path id="path15342" style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1" d="M 4.9977237,-2.9981886 0,0 1.8008272,3.0018248 53.312402,3.001923 58.309682,0.00400026 56.508589,-2.9982677 Z" transform="rotate(30.96)" />
-                            <path id="path15319" style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1" d="m 41.075547,28.723827 1.800828,-3.001825 -4.997724,-2.998189 -51.510865,-7.9e-5 -1.801093,3.002268 4.99728,2.997923 z" transform="rotate(-30.96)" />
-                            <path id="rect10396" style="display:inline;fill:#ffffff;stroke-width:0.999997;stroke:none" d="M 20,0 H 30 V 30.000002 H 20 Z" />
-                            <path id="rect11230" style="display:inline;fill:#ffffff;stroke:none" d="M 1.6689301e-6,10.000001 H 50.000002 v 10 H 1.6689301e-6 Z" />
-                            <path id="rect10396-3" style="display:inline;fill:#c8102e;stroke-width:0.999996;stroke:none" d="m 22,0 h 6 v 30.000002 h -6 z" />
-                            <path id="rect11230-6" style="display:inline;fill:#c8102e;stroke:none" d="M 1.6689301e-6,12.000001 H 50.000002 v 6 H 1.6689301e-6 Z" />
-                            <path id="path15792" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 50.000049,30.000236 V 27.667562 L 37.217883,19.999813 h -3.887618 z" />
-                            <path id="path15766" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 0,0 1.199754,1.9998871 16.104952,1.9998009 19.438245,1.2232966e-4 Z" transform="rotate(30.96)" />
-                            <path id="path15786" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 30.000236 9.9999064 L 33.334916 9.9999064 L 50.000049 0 L 46.116565 0 L 30.000236 9.6686605 L 30.000236 9.9999064 z " />
-                            <path id="path15788" style="display:inline;fill:#c8102e;fill-opacity:1;stroke:none;stroke-width:1" d="M 19.999813 19.999813 L 16.666166 19.999813 L 0.0041341146 29.995068 L 0.0041341146 30.000236 L 3.8840007 30.000236 L 19.999813 20.332092 L 19.999813 19.999813 z " />
-                        </svg>
-                    </a>
-
 
                 </div>
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
